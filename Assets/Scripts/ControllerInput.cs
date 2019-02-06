@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [System.Serializable]
 public abstract class ControllerInput {
 
-  public enum Name { X, LeftStickHorizontal };
+  public enum Name { X, LeftStickHorizontal, LeftStickVertical };
 
   [SerializeField]
   private UnityEvent onEvent;

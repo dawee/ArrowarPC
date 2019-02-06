@@ -24,6 +24,15 @@ public class Controller : MonoBehaviour {
   [SerializeField]
   private NegativeDirectionInput LeftInput = new NegativeDirectionInput(ControllerInput.Name.LeftStickHorizontal);
 
+  [SerializeField]
+  private PositiveDirectionInput RightInput = new PositiveDirectionInput(ControllerInput.Name.LeftStickHorizontal);
+
+  [SerializeField]
+  private NegativeDirectionInput DownInput = new NegativeDirectionInput(ControllerInput.Name.LeftStickVertical);
+
+  [SerializeField]
+  private PositiveDirectionInput UpInput = new PositiveDirectionInput(ControllerInput.Name.LeftStickVertical);
+
   void Update() {
     switch (state) {
       case State.Initial:
@@ -40,6 +49,9 @@ public class Controller : MonoBehaviour {
       case State.Ready:
         XInput.Update(manager, index);
         LeftInput.Update(manager, index);
+        RightInput.Update(manager, index);
+        UpInput.Update(manager, index);
+        DownInput.Update(manager, index);
         break;
       default:
         break;      

@@ -19,6 +19,7 @@ public class ControllersManager : MonoBehaviour {
   void Awake() {
     axesNames[ControllerInput.Name.X] = GenerateInputAxesNames("ARW_X_Joystick{0}");
     axesNames[ControllerInput.Name.LeftStickHorizontal] = GenerateInputAxesNames("ARW_LeftStickHorizontal_Joystick{0}");
+    axesNames[ControllerInput.Name.LeftStickVertical] = GenerateInputAxesNames("ARW_LeftStickVertical_Joystick{0}");
   }
 
   bool IsJoystickLinked(int joystickIndex) {
