@@ -17,7 +17,8 @@ public class ControllersManager : MonoBehaviour {
   }
 
   void Awake() {
-    axesNames[ControllerInput.Name.X_BUTTON] = GenerateInputAxesNames("ARW_X_Joystick{0}");
+    axesNames[ControllerInput.Name.X] = GenerateInputAxesNames("ARW_X_Joystick{0}");
+    axesNames[ControllerInput.Name.LeftStickHorizontal] = GenerateInputAxesNames("ARW_LeftStickHorizontal_Joystick{0}");
   }
 
   bool IsJoystickLinked(int joystickIndex) {
@@ -50,7 +51,7 @@ public class ControllersManager : MonoBehaviour {
   }
 
   bool IsJoystickXPressed(int joystickIndex) {
-    return Input.GetAxis(axesNames[ControllerInput.Name.X_BUTTON][joystickIndex]) == 1;
+    return Input.GetAxis(axesNames[ControllerInput.Name.X][joystickIndex]) == 1;
   }
 
   void CheckAndLinkJoystick(int joystickIndex) {

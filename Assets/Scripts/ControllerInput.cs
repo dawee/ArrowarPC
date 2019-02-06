@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [System.Serializable]
 public abstract class ControllerInput {
 
-  public enum Name { X_BUTTON };
+  public enum Name { X, LeftStickHorizontal };
 
   [SerializeField]
   private UnityEvent onEvent;

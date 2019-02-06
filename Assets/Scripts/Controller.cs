@@ -19,7 +19,10 @@ public class Controller : MonoBehaviour {
   private State state = State.Initial;
 
   [SerializeField]
-  private ControllerButton XInput = new ControllerButton(ControllerInput.Name.X_BUTTON);
+  private ControllerButton XInput = new ControllerButton(ControllerInput.Name.X);
+
+  [SerializeField]
+  private NegativeDirectionInput LeftInput = new NegativeDirectionInput(ControllerInput.Name.LeftStickHorizontal);
 
   void Update() {
     switch (state) {
@@ -36,6 +39,7 @@ public class Controller : MonoBehaviour {
         break;
       case State.Ready:
         XInput.Update(manager, index);
+        LeftInput.Update(manager, index);
         break;
       default:
         break;      
