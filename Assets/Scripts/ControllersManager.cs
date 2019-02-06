@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class ControllersManager : MonoBehaviour {
 
-  public enum InputName { X_BUTTON };
-
   private IEnumerable<int> joystickIndexes = Enumerable.Range(1, 16);
   private IEnumerable<int> controllerIndexes = Enumerable.Range(1, 2);
 
-  private Dictionary<InputName, Dictionary<int, string>> axesNames = new Dictionary<InputName, Dictionary<int, string>>();
+  private Dictionary<ControllerInput.Name, Dictionary<int, string>> axesNames = new Dictionary<ControllerInput.Name, Dictionary<int, string>>();
 
   private Dictionary<int, int> links = new Dictionary<int, int>();
 
@@ -19,7 +17,7 @@ public class ControllersManager : MonoBehaviour {
   }
 
   void Awake() {
-    axesNames[InputName.X_BUTTON] = GenerateInputAxesNames("ARW_X_Joystick{0}");
+    axesNames[ControllerInput.Name.X_BUTTON] = GenerateInputAxesNames("ARW_X_Joystick{0}");
   }
 
   bool IsJoystickLinked(int joystickIndex) {
@@ -52,7 +50,7 @@ public class ControllersManager : MonoBehaviour {
   }
 
   bool IsJoystickXPressed(int joystickIndex) {
-    return Input.GetAxis(axesNames[InputName.X_BUTTON][joystickIndex]) == 1;
+    return Input.GetAxis(axesNames[ControllerInput.Name.X_BUTTON][joystickIndex]) == 1;
   }
 
   void CheckAndLinkJoystick(int joystickIndex) {
@@ -71,6 +69,16 @@ public class ControllersManager : MonoBehaviour {
 
   public bool isControllerLinked(int controllerIndex) {
     return links.ContainsKey(controllerIndex);
+  }
+
+  public string GetAxisName(int controllerIndex, ControllerInput.Name name) {
+    if (links.ContainsKey(controllerIndex)) {
+      int joystickIndex = links[controllerIndex];
+
+      return axesNames[name][controllerIndex];
+    } else {
+      return null;
+    }
   }
 
 }
