@@ -77,7 +77,7 @@ public class ControllersManager : MonoBehaviour {
     if (links.ContainsKey(controllerIndex)) {
       int joystickIndex = links[controllerIndex];
 
-      return axesNames[name][controllerIndex];
+      return axesNames[name][joystickIndex];
     } else {
       return null;
     }
