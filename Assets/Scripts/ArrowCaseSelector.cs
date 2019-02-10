@@ -5,23 +5,17 @@ using UnityEngine.Events;
 
 public class ArrowCaseSelector : MonoBehaviour {
 
-    [System.Serializable]
-    public class MoveRequestEvent : UnityEvent<ArrowCaseSelector> {} 
-
     [SerializeField]
     private Animator animator;
 
     [SerializeField]
-    private MoveRequestEvent moveLeftRequestEvent;
+    private ArrowCaseMoveSelection move = new ArrowCaseMoveSelection();
 
-    [SerializeField]
-    private MoveRequestEvent moveRightRequestEvent;
-
-    [SerializeField]
-    private MoveRequestEvent moveUpRequestEvent;
-
-    [SerializeField]
-    private MoveRequestEvent moveDownRequestEvent;
+    public ArrowCaseMoveSelection Move {
+        get {
+            return move;
+        }
+    }
 
     private int playerIndex;
 
@@ -48,20 +42,29 @@ public class ArrowCaseSelector : MonoBehaviour {
         return playerIndex > 0;
     }
 
-    public void RequestMoveLeft() {
-        moveLeftRequestEvent.Invoke(this);
+    public void RequestMoveLeft(int playerIndex) {
+        Debug.Log(string.Format("RequestMoveLeft {0}", playerIndex));
+        if (this.playerIndex == playerIndex) {
+            move.Left.Invoke(this);            
+        }
     }
 
-    public void RequestMoveRight() {
-        moveRightRequestEvent.Invoke(this);
+    public void RequestMoveRight(int playerIndex) {
+        if (this.playerIndex == playerIndex) {
+            move.Right.Invoke(this);            
+        }
     }
 
-    public void RequestMoveDown() {
-        moveDownRequestEvent.Invoke(this);
+    public void RequestMoveDown(int playerIndex) {
+        if (this.playerIndex == playerIndex) {
+            move.Down.Invoke(this);            
+        }
     }
 
-    public void RequestMoveUp() {
-        moveUpRequestEvent.Invoke(this);
+    public void RequestMoveUp(int playerIndex) {
+        if (this.playerIndex == playerIndex) {
+            move.Up.Invoke(this);            
+        }
     }
 
     public void StealSelectionFrom(ArrowCaseSelector origin) {

@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour {
     private ControllersManager manager;
 
     [SerializeField]
-    private int index;
+    public int Index;
 
     [SerializeField]
     UnityEvent readyEvent;
@@ -19,39 +19,69 @@ public class Controller : MonoBehaviour {
     private State state = State.Initial;
 
     [SerializeField]
-    private ControllerButton XInput = new ControllerButton(ControllerInput.Name.X);
+    private ControllerButton xInput = new ControllerButton(ControllerInput.Name.X);
+
+    public ControllerButton XInput {
+        get {
+            return xInput;
+        }
+    }
 
     [SerializeField]
-    private NegativeDirectionInput LeftInput = new NegativeDirectionInput(ControllerInput.Name.LeftStickHorizontal);
+    private NegativeDirectionInput leftInput = new NegativeDirectionInput(ControllerInput.Name.LeftStickHorizontal);
+
+    public NegativeDirectionInput LeftInput {
+        get {
+            return leftInput;
+        }
+    }
 
     [SerializeField]
-    private PositiveDirectionInput RightInput = new PositiveDirectionInput(ControllerInput.Name.LeftStickHorizontal);
+    private PositiveDirectionInput rightInput = new PositiveDirectionInput(ControllerInput.Name.LeftStickHorizontal);
+
+    public PositiveDirectionInput RightInput {
+        get {
+            return rightInput;
+        }
+    }
 
     [SerializeField]
-    private NegativeDirectionInput DownInput = new NegativeDirectionInput(ControllerInput.Name.LeftStickVertical);
+    private NegativeDirectionInput downInput = new NegativeDirectionInput(ControllerInput.Name.LeftStickVertical);
+
+    public NegativeDirectionInput DownInput {
+        get {
+            return downInput;
+        }
+    }
 
     [SerializeField]
-    private PositiveDirectionInput UpInput = new PositiveDirectionInput(ControllerInput.Name.LeftStickVertical);
+    private PositiveDirectionInput upInput = new PositiveDirectionInput(ControllerInput.Name.LeftStickVertical);
+
+    public PositiveDirectionInput UpInput {
+        get {
+            return upInput;
+        }
+    }
 
     void Update() {
         switch (state) {
             case State.Initial:
-                if (manager.isControllerLinked(index)) {
+                if (manager.isControllerLinked(Index)) {
                     state = State.Linked;
                 }
                 break;
             case State.Linked:
-                if (!XInput.IsOn(manager, index)) {
+                if (!XInput.IsOn(manager, Index)) {
                     state = State.Ready;
                     readyEvent.Invoke();
                 }
                 break;
             case State.Ready:
-                XInput.Update(manager, index);
-                LeftInput.Update(manager, index);
-                RightInput.Update(manager, index);
-                UpInput.Update(manager, index);
-                DownInput.Update(manager, index);
+                XInput.Update(manager, Index);
+                LeftInput.Update(manager, Index);
+                RightInput.Update(manager, Index);
+                UpInput.Update(manager, Index);
+                DownInput.Update(manager, Index);
                 break;
             default:
                 break;            

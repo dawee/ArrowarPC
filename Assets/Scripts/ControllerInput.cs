@@ -9,16 +9,40 @@ public abstract class ControllerInput {
     public enum Name { X, LeftStickHorizontal, LeftStickVertical };
 
     [SerializeField]
-    private UnityEvent onEvent;
+    private UnityEvent onEvent = new UnityEvent();
+
+    public UnityEvent OnEvent {
+        get {
+            return onEvent;
+        }
+    }
 
     [SerializeField]
-    private UnityEvent offEvent;
+    private UnityEvent offEvent = new UnityEvent();
+
+    public UnityEvent OffEvent {
+        get {
+            return offEvent;
+        }
+    }
 
     [SerializeField]
-    private UnityEvent turnOnEvent;
+    private UnityEvent turnOnEvent = new UnityEvent();
+
+    public UnityEvent TurnOnEvent {
+        get {
+            return turnOnEvent;
+        }
+    }
 
     [SerializeField]
-    private UnityEvent turnOffEvent;
+    private UnityEvent turnOffEvent = new UnityEvent();
+
+    public UnityEvent TurnOffEvent {
+        get {
+            return turnOffEvent;
+        }
+    }
 
     private Name name;
     private bool on;
