@@ -42,6 +42,7 @@ public class GridTools {
         var arrowCaseRectTransform = arrowCasePrefab.GetComponent<RectTransform>();
         var grid = new GameObject("Arrowar Grid");
         var gridRectTransform = grid.AddComponent<RectTransform>();
+        var setup = grid.AddComponent<ArrowCaseSetup>();
         var layout = grid.AddComponent<GridLayoutGroup>();
         var cases = new Dictionary<Vector2, GameObject>();
         var controllers = new Dictionary<int, Controller>();
@@ -58,7 +59,13 @@ public class GridTools {
             var position = GetGridPosition(index);
             var arrowCase = Object.Instantiate(arrowCasePrefab, Vector3.zero, Quaternion.identity);
             var selector = arrowCase.GetComponent<ArrowCaseSelector>();
+            var serializedSelector = new UnityEditor.SerializedObject(selector);
+            var setupProperty = serializedSelector.FindProperty("setup");
             
+            setupProperty.objectReferenceValue = setup;
+
+            serializedSelector.ApplyModifiedProperties();
+
             arrowCase.transform.SetParent(grid.transform);
             arrowCase.name = string.Format("ArrowCase {0} (Pos {1};{2})", index, position.x, position.y);
             cases[position] = arrowCase;

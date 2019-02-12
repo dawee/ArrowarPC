@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
 public class ArrowCaseSelector : MonoBehaviour {
 
     [SerializeField]
@@ -29,9 +30,23 @@ public class ArrowCaseSelector : MonoBehaviour {
         }
     }
 
+    [SerializeField]
+    private ArrowCaseSetup setup;
+
+    private float lastSelectionChangeTime = 0;
+
+    private bool CanChangeSelection() {
+        return
+            (lastSelectionChangeTime == 0) || 
+            (Time.fixedTime - lastSelectionChangeTime > setup.MinTimeBetweenSelections);
+    }
+
     public void SelectForPlayer(int playerIndex) {
-        this.playerIndex = playerIndex;
-        animator.SetInteger("select", playerIndex);
+        if (CanChangeSelection()) {
+            this.playerIndex = playerIndex;
+            animator.SetInteger("select", playerIndex);
+            lastSelectionChangeTime = Time.fixedTime;
+        }
     }
 
     public void Unselect() {
@@ -43,32 +58,31 @@ public class ArrowCaseSelector : MonoBehaviour {
     }
 
     public void RequestMoveLeft(int playerIndex) {
-        Debug.Log(string.Format("RequestMoveLeft {0}", playerIndex));
-        if (this.playerIndex == playerIndex) {
+        if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Left.Invoke(this);            
         }
     }
 
     public void RequestMoveRight(int playerIndex) {
-        if (this.playerIndex == playerIndex) {
+        if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Right.Invoke(this);            
         }
     }
 
     public void RequestMoveDown(int playerIndex) {
-        if (this.playerIndex == playerIndex) {
+        if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Down.Invoke(this);            
         }
     }
 
     public void RequestMoveUp(int playerIndex) {
-        if (this.playerIndex == playerIndex) {
+        if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Up.Invoke(this);            
         }
     }
 
     public void StealSelectionFrom(ArrowCaseSelector origin) {
-        if (origin.HasSelection() && !HasSelection()) {
+        if (CanChangeSelection() && origin.HasSelection() && !HasSelection()) {
             SelectForPlayer(origin.playerIndex);
             origin.Unselect();
         }
