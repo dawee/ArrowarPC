@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ControllersManager : MonoBehaviour {
+public class ControllersManager {
 
     private IEnumerable<int> joystickIndexes = Enumerable.Range(1, 16);
     private IEnumerable<int> controllerIndexes = Enumerable.Range(1, 2);
@@ -16,10 +16,26 @@ public class ControllersManager : MonoBehaviour {
         return joystickIndexes.ToDictionary(i => i, i => string.Format(format, i));
     }
 
-    void Awake() {
+    private int lastUpdateFrame;
+
+    private static ControllersManager instance;
+
+    public static ControllersManager Instance {
+        get {
+            if (instance == null) {
+                instance = new ControllersManager();
+            }
+
+            return instance;
+        }
+    }
+
+    private ControllersManager() {
         axesNames[ControllerInput.Name.X] = GenerateInputAxesNames("ARW_X_Joystick{0}");
         axesNames[ControllerInput.Name.LeftStickHorizontal] = GenerateInputAxesNames("ARW_LeftStickHorizontal_Joystick{0}");
         axesNames[ControllerInput.Name.LeftStickVertical] = GenerateInputAxesNames("ARW_LeftStickVertical_Joystick{0}");
+        axesNames[ControllerInput.Name.DPadHorizontal] = GenerateInputAxesNames("ARW_DPadHorizontal_Joystick{0}");
+        axesNames[ControllerInput.Name.DPadVertical] = GenerateInputAxesNames("ARW_DPadVertical_Joystick{0}");
     }
 
     bool IsJoystickLinked(int joystickIndex) {
@@ -61,11 +77,15 @@ public class ControllersManager : MonoBehaviour {
         }
     }
 
-    void Update() {
-        if (HasUnlinkedController()) {
-            foreach(int joystickIndex in joystickIndexes) {
-                CheckAndLinkJoystick(joystickIndex);
+    public void Update() {
+        if (lastUpdateFrame != Time.frameCount) {
+            if (HasUnlinkedController()) {
+                foreach(int joystickIndex in joystickIndexes) {
+                    CheckAndLinkJoystick(joystickIndex);
+                }
             }
+
+            lastUpdateFrame = Time.frameCount;
         }
     }
 

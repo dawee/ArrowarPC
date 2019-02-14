@@ -8,13 +8,16 @@ public class Controller : MonoBehaviour {
     enum State {Initial, Linked, Ready};
 
     [SerializeField]
-    private ControllersManager manager;
-
-    [SerializeField]
     public int Index;
 
     [SerializeField]
-    UnityEvent readyEvent;
+    UnityEvent readyEvent = new UnityEvent();
+
+    public UnityEvent ReadyEvent {
+        get {
+            return readyEvent;
+        }
+    }
 
     private State state = State.Initial;
 
@@ -28,7 +31,7 @@ public class Controller : MonoBehaviour {
     }
 
     [SerializeField]
-    private NegativeDirectionInput leftInput = new NegativeDirectionInput(ControllerInput.Name.LeftStickHorizontal);
+    private NegativeDirectionInput leftInput = new NegativeDirectionInput(ControllerInput.Name.DPadHorizontal);
 
     public NegativeDirectionInput LeftInput {
         get {
@@ -37,7 +40,7 @@ public class Controller : MonoBehaviour {
     }
 
     [SerializeField]
-    private PositiveDirectionInput rightInput = new PositiveDirectionInput(ControllerInput.Name.LeftStickHorizontal);
+    private PositiveDirectionInput rightInput = new PositiveDirectionInput(ControllerInput.Name.DPadHorizontal);
 
     public PositiveDirectionInput RightInput {
         get {
@@ -46,7 +49,7 @@ public class Controller : MonoBehaviour {
     }
 
     [SerializeField]
-    private NegativeDirectionInput downInput = new NegativeDirectionInput(ControllerInput.Name.LeftStickVertical);
+    private NegativeDirectionInput downInput = new NegativeDirectionInput(ControllerInput.Name.DPadVertical);
 
     public NegativeDirectionInput DownInput {
         get {
@@ -55,7 +58,7 @@ public class Controller : MonoBehaviour {
     }
 
     [SerializeField]
-    private PositiveDirectionInput upInput = new PositiveDirectionInput(ControllerInput.Name.LeftStickVertical);
+    private PositiveDirectionInput upInput = new PositiveDirectionInput(ControllerInput.Name.DPadVertical);
 
     public PositiveDirectionInput UpInput {
         get {
@@ -64,24 +67,26 @@ public class Controller : MonoBehaviour {
     }
 
     void Update() {
+        ControllersManager.Instance.Update();
+        
         switch (state) {
             case State.Initial:
-                if (manager.isControllerLinked(Index)) {
+                if (ControllersManager.Instance.isControllerLinked(Index)) {
                     state = State.Linked;
                 }
                 break;
             case State.Linked:
-                if (!XInput.IsOn(manager, Index)) {
+                if (!XInput.IsOn(ControllersManager.Instance, Index)) {
                     state = State.Ready;
                     readyEvent.Invoke();
                 }
                 break;
             case State.Ready:
-                XInput.Update(manager, Index);
-                LeftInput.Update(manager, Index);
-                RightInput.Update(manager, Index);
-                UpInput.Update(manager, Index);
-                DownInput.Update(manager, Index);
+                XInput.Update(ControllersManager.Instance, Index);
+                LeftInput.Update(ControllersManager.Instance, Index);
+                RightInput.Update(ControllersManager.Instance, Index);
+                UpInput.Update(ControllersManager.Instance, Index);
+                DownInput.Update(ControllersManager.Instance, Index);
                 break;
             default:
                 break;            

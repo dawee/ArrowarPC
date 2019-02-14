@@ -72,31 +72,39 @@ public class GridTools {
 
             for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
                 UnityEventTools.AddIntPersistentListener(
-                    controllers[playerIndex].LeftInput.OnEvent,
+                    controllers[playerIndex].LeftInput.TurnOnEvent,
                     new UnityAction<int>(selector.RequestMoveLeft),
                     playerIndex
                 );
 
                 UnityEventTools.AddIntPersistentListener(
-                    controllers[playerIndex].RightInput.OnEvent,
+                    controllers[playerIndex].RightInput.TurnOnEvent,
                     new UnityAction<int>(selector.RequestMoveRight),
                     playerIndex
                 );
 
                 UnityEventTools.AddIntPersistentListener(
-                    controllers[playerIndex].DownInput.OnEvent,
+                    controllers[playerIndex].DownInput.TurnOnEvent,
                     new UnityAction<int>(selector.RequestMoveDown),
                     playerIndex
                 );
 
                 UnityEventTools.AddIntPersistentListener(
-                    controllers[playerIndex].UpInput.OnEvent,
+                    controllers[playerIndex].UpInput.TurnOnEvent,
                     new UnityAction<int>(selector.RequestMoveUp),
                     playerIndex
                 );
             }
 
         }
+
+        var firstSelector = cases.First().Value.GetComponent<ArrowCaseSelector>();
+
+        UnityEventTools.AddIntPersistentListener(
+            controllers[1].ReadyEvent,
+            new UnityAction<int>(firstSelector.SelectForPlayer),
+            1
+        );
 
         foreach (var arrowCaseItem in cases) {
             var arrowCase = arrowCaseItem.Value;

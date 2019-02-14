@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class ArrowCaseSelector : MonoBehaviour {
 
     [SerializeField]
-    private Animator animator;
+    private Animator animator = default;
 
     [SerializeField]
     private ArrowCaseMoveSelection move = new ArrowCaseMoveSelection();
@@ -31,21 +31,19 @@ public class ArrowCaseSelector : MonoBehaviour {
     }
 
     [SerializeField]
-    private ArrowCaseSetup setup;
+    private ArrowCaseSetup setup = default;
 
-    private float lastSelectionChangeTime = 0;
+    private int lastMoveFrame = 0;
 
     private bool CanChangeSelection() {
-        return
-            (lastSelectionChangeTime == 0) || 
-            (Time.fixedTime - lastSelectionChangeTime > setup.MinTimeBetweenSelections);
+        return lastMoveFrame != Time.frameCount;
     }
 
     public void SelectForPlayer(int playerIndex) {
         if (CanChangeSelection()) {
             this.playerIndex = playerIndex;
             animator.SetInteger("select", playerIndex);
-            lastSelectionChangeTime = Time.fixedTime;
+            lastMoveFrame = Time.frameCount;
         }
     }
 

@@ -6,7 +6,13 @@ using UnityEngine.Events;
 [System.Serializable]
 public abstract class ControllerInput {
 
-    public enum Name { X, LeftStickHorizontal, LeftStickVertical };
+    public enum Name {
+        X,
+        LeftStickHorizontal,
+        LeftStickVertical,
+        DPadHorizontal,
+        DPadVertical,
+    };
 
     [SerializeField]
     private UnityEvent onEvent = new UnityEvent();
@@ -92,10 +98,14 @@ public class ControllerButton : ControllerInput {
 [System.Serializable]
 public class PositiveDirectionInput : ControllerInput {
 
-    public PositiveDirectionInput(Name name) : base(name) {}
+    private float threshold;
+
+    public PositiveDirectionInput(Name name, float threshold = 0.9f) : base(name) {
+        this.threshold = threshold;
+    }
 
     public override bool IsOn(string axisName) {
-        return Input.GetAxis(axisName) > 0;
+        return Input.GetAxis(axisName) > threshold;
     }
 
 }
@@ -103,10 +113,14 @@ public class PositiveDirectionInput : ControllerInput {
 [System.Serializable]
 public class NegativeDirectionInput : ControllerInput {
 
-    public NegativeDirectionInput(Name name) : base(name) {}
+    private float threshold;
+
+    public NegativeDirectionInput(Name name, float threshold = -0.9f) : base(name) {
+        this.threshold = threshold;
+    }
 
     public override bool IsOn(string axisName) {
-        return Input.GetAxis(axisName) < 0;
+        return Input.GetAxis(axisName) < threshold;
     }
 
 }
