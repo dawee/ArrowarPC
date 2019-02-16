@@ -35,6 +35,18 @@ public class GridTools {
         }
     }
 
+
+    static void  AddSelectorDirectionChangeListeners(ArrowCaseDirection direction, Dictionary<int, Controller> controllers) {
+        for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
+            UnityEventTools.AddIntPersistentListener(
+                controllers[playerIndex].XInput.TurnOnEvent,
+                new UnityAction<int>(direction.ChangeDirection),
+                playerIndex
+            );
+        }
+    }
+
+
     static void AddSelectorMoveRequestListeners(ArrowCaseSelector selector, Dictionary<int, Controller> controllers) {
         for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
             UnityEventTools.AddIntPersistentListener(
@@ -78,6 +90,7 @@ public class GridTools {
             var position = GetGridPosition(index);
             var arrowCase = Object.Instantiate(arrowCasePrefab, Vector3.zero, Quaternion.identity);
             var selector = arrowCase.GetComponent<ArrowCaseSelector>();
+            var direction = arrowCase.GetComponent<ArrowCaseDirection>();
             var serializedSelector = new UnityEditor.SerializedObject(selector);
             var setupProperty = serializedSelector.FindProperty("setup");
             
@@ -90,6 +103,7 @@ public class GridTools {
             cases[position] = arrowCase;
 
             AddSelectorMoveRequestListeners(selector, controllers);
+            AddSelectorDirectionChangeListeners(direction, controllers);
         }
 
         gridRectTransform.sizeDelta = new Vector2(
