@@ -29,8 +29,8 @@ public class GridTools {
         if (cases.ContainsKey(nearPosition)) {
             var nearCase = cases[nearPosition];
             var nearSelector = nearCase.GetComponent<ArrowCaseSelector>();
+            var action = new UnityAction<ArrowCaseMoveSelection.Data>(nearSelector.StealSelectionFrom);
 
-            UnityAction<ArrowCaseSelector> action = new UnityAction<ArrowCaseSelector>(nearSelector.StealSelectionFrom);
             UnityEventTools.AddPersistentListener(moveEvent, action);
         }
     }

@@ -5,9 +5,27 @@ using UnityEngine.Events;
 
 [System.Serializable]
 public class ArrowCaseMoveSelection {
+
+    [System.Serializable]
+    public class Data {
+        public enum Direction {
+            Left,
+            Right,
+            Down,
+            Up
+        }
+
+        public ArrowCaseSelector Origin { get; private set; }
+        public Direction InitialDirection { get; private set; }
+
+        public Data(ArrowCaseSelector origin, Direction initialDirection) {
+            Origin = origin;
+            InitialDirection = initialDirection;
+        }
+    }    
     
     [System.Serializable]
-    public class EventType : UnityEvent<ArrowCaseSelector> {} 
+    public class EventType : UnityEvent<Data> {} 
 
     [SerializeField]
     private EventType right = new EventType();

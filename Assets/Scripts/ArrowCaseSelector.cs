@@ -57,32 +57,69 @@ public class ArrowCaseSelector : MonoBehaviour {
 
     public void RequestMoveLeft(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
-            move.Left.Invoke(this);            
+            move.Left.Invoke(
+                new ArrowCaseMoveSelection.Data(
+                    this,
+                    ArrowCaseMoveSelection.Data.Direction.Left
+                )
+            );
         }
     }
 
     public void RequestMoveRight(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
-            move.Right.Invoke(this);            
+            move.Right.Invoke(
+                new ArrowCaseMoveSelection.Data(
+                    this,
+                    ArrowCaseMoveSelection.Data.Direction.Right
+                )
+            );
         }
     }
 
     public void RequestMoveDown(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
-            move.Down.Invoke(this);            
+            move.Down.Invoke(
+                new ArrowCaseMoveSelection.Data(
+                    this,
+                    ArrowCaseMoveSelection.Data.Direction.Down
+                )
+            );
         }
     }
 
     public void RequestMoveUp(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
-            move.Up.Invoke(this);            
+            move.Up.Invoke(
+                new ArrowCaseMoveSelection.Data(
+                    this,
+                    ArrowCaseMoveSelection.Data.Direction.Up
+                )
+            );
         }
     }
 
-    public void StealSelectionFrom(ArrowCaseSelector origin) {
-        if (CanChangeSelection() && origin.HasSelection() && !HasSelection()) {
-            SelectForPlayer(origin.playerIndex);
-            origin.Unselect();
+    public void StealSelectionFrom(ArrowCaseMoveSelection.Data data) {
+        if (CanChangeSelection() && data.Origin.HasSelection()) {
+            if (HasSelection()) {
+                switch(data.InitialDirection) {
+                    case ArrowCaseMoveSelection.Data.Direction.Left:
+                        move.Left.Invoke(data);
+                        break;
+                    case ArrowCaseMoveSelection.Data.Direction.Right:
+                        move.Right.Invoke(data);
+                        break;
+                    case ArrowCaseMoveSelection.Data.Direction.Down:
+                        move.Down.Invoke(data);
+                        break;
+                    case ArrowCaseMoveSelection.Data.Direction.Up:
+                        move.Up.Invoke(data);
+                        break;
+                };
+            } else {
+                SelectForPlayer(data.Origin.playerIndex);
+                data.Origin.Unselect();
+            }
         }
     }
 
