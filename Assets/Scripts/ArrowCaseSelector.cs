@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable]
 public class ArrowCaseSelector : MonoBehaviour {
 
     [SerializeField]
@@ -12,13 +11,17 @@ public class ArrowCaseSelector : MonoBehaviour {
     [SerializeField]
     private ArrowCaseMoveSelection move = new ArrowCaseMoveSelection();
 
+    [SerializeField]
+    private ArrowCaseSetup setup = default;
+
+    private int playerIndex;
+    private int lastMoveFrame = 0;
+
     public ArrowCaseMoveSelection Move {
         get {
             return move;
         }
     }
-
-    private int playerIndex;
 
     public int PlayerIndex {
         get {
@@ -29,11 +32,6 @@ public class ArrowCaseSelector : MonoBehaviour {
             SelectForPlayer(value);
         }
     }
-
-    [SerializeField]
-    private ArrowCaseSetup setup = default;
-
-    private int lastMoveFrame = 0;
 
     private bool CanChangeSelection() {
         return lastMoveFrame != Time.frameCount;
