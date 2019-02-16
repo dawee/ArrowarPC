@@ -35,22 +35,41 @@ public class GridTools {
         }
     }
 
-    [MenuItem("GameObject/UI/Arrowar Grid")]
-    static void CreateGrid() {
-        var casesCount = Mathf.RoundToInt(gridSize.x * gridSize.y);
+    static void AddSelectorMoveRequestListeners(ArrowCaseSelector selector, Dictionary<int, Controller> controllers) {
+        for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
+            UnityEventTools.AddIntPersistentListener(
+                controllers[playerIndex].LeftInput.TurnOnEvent,
+                new UnityAction<int>(selector.RequestMoveLeft),
+                playerIndex
+            );
+
+            UnityEventTools.AddIntPersistentListener(
+                controllers[playerIndex].RightInput.TurnOnEvent,
+                new UnityAction<int>(selector.RequestMoveRight),
+                playerIndex
+            );
+
+            UnityEventTools.AddIntPersistentListener(
+                controllers[playerIndex].DownInput.TurnOnEvent,
+                new UnityAction<int>(selector.RequestMoveDown),
+                playerIndex
+            );
+
+            UnityEventTools.AddIntPersistentListener(
+                controllers[playerIndex].UpInput.TurnOnEvent,
+                new UnityAction<int>(selector.RequestMoveUp),
+                playerIndex
+            );
+        }
+    }
+
+    static Dictionary<Vector2, GameObject> CreateArrowCases(int casesCount, GameObject grid, Dictionary<int, Controller> controllers) {
+        var cases = new Dictionary<Vector2, GameObject>();
         var arrowCasePrefab = Resources.Load<GameObject>("ArrowCase");
         var arrowCaseRectTransform = arrowCasePrefab.GetComponent<RectTransform>();
-        var grid = new GameObject("Arrowar Grid");
-        var gridRectTransform = grid.AddComponent<RectTransform>();
-        var setup = grid.AddComponent<ArrowCaseSetup>();
-        var layout = grid.AddComponent<GridLayoutGroup>();
-        var cases = new Dictionary<Vector2, GameObject>();
-        var controllers = new Dictionary<int, Controller>();
-
-        for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
-            controllers[playerIndex] = grid.AddComponent<Controller>();
-            controllers[playerIndex].Index = playerIndex;
-        }
+        var setup = grid.GetComponent<ArrowCaseSetup>();
+        var gridRectTransform = grid.GetComponent<RectTransform>();
+        var layout = grid.GetComponent<GridLayoutGroup>();
 
         layout.cellSize = arrowCaseRectTransform.sizeDelta;
         layout.startCorner = GridLayoutGroup.Corner.LowerLeft;
@@ -70,33 +89,32 @@ public class GridTools {
             arrowCase.name = string.Format("ArrowCase {0} (Pos {1};{2})", index, position.x, position.y);
             cases[position] = arrowCase;
 
-            for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
-                UnityEventTools.AddIntPersistentListener(
-                    controllers[playerIndex].LeftInput.TurnOnEvent,
-                    new UnityAction<int>(selector.RequestMoveLeft),
-                    playerIndex
-                );
-
-                UnityEventTools.AddIntPersistentListener(
-                    controllers[playerIndex].RightInput.TurnOnEvent,
-                    new UnityAction<int>(selector.RequestMoveRight),
-                    playerIndex
-                );
-
-                UnityEventTools.AddIntPersistentListener(
-                    controllers[playerIndex].DownInput.TurnOnEvent,
-                    new UnityAction<int>(selector.RequestMoveDown),
-                    playerIndex
-                );
-
-                UnityEventTools.AddIntPersistentListener(
-                    controllers[playerIndex].UpInput.TurnOnEvent,
-                    new UnityAction<int>(selector.RequestMoveUp),
-                    playerIndex
-                );
-            }
-
+            AddSelectorMoveRequestListeners(selector, controllers);
         }
+
+        gridRectTransform.sizeDelta = new Vector2(
+            gridSize.x * arrowCaseRectTransform.sizeDelta.x,
+            gridSize.y * arrowCaseRectTransform.sizeDelta.y
+        );
+
+        return cases;
+    }
+
+    [MenuItem("GameObject/UI/Arrowar Grid")]
+    static void CreateGrid() {
+        var casesCount = Mathf.RoundToInt(gridSize.x * gridSize.y);
+        var grid = new GameObject("Arrowar Grid");
+        var gridRectTransform = grid.AddComponent<RectTransform>();
+        var setup = grid.AddComponent<ArrowCaseSetup>();
+        var layout = grid.AddComponent<GridLayoutGroup>();
+        var controllers = new Dictionary<int, Controller>();
+
+        for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
+            controllers[playerIndex] = grid.AddComponent<Controller>();
+            controllers[playerIndex].Index = playerIndex;
+        }
+
+        var cases = CreateArrowCases(casesCount, grid, controllers);
 
         UnityEventTools.AddIntPersistentListener(
             controllers[1].ReadyEvent,
@@ -150,10 +168,5 @@ public class GridTools {
         gridRectTransform.anchoredPosition = Vector2.zero;
         gridRectTransform.localPosition = Vector2.zero;
         gridRectTransform.localScale = Vector2.one;
-
-        gridRectTransform.sizeDelta = new Vector2(
-            gridSize.x * arrowCaseRectTransform.sizeDelta.x,
-            gridSize.y * arrowCaseRectTransform.sizeDelta.y
-        );
     }
 }
