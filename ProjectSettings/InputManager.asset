@@ -1062,7 +1062,7 @@ InputManager:
     axis: 1
     joyNum: 16
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick1
+    m_Name: ARW_XBoxDPadHorizontal_Joystick1
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1078,7 +1078,7 @@ InputManager:
     axis: 5
     joyNum: 1
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick2
+    m_Name: ARW_XBoxDPadHorizontal_Joystick2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1094,7 +1094,7 @@ InputManager:
     axis: 5
     joyNum: 2
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick3
+    m_Name: ARW_XBoxDPadHorizontal_Joystick3
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1110,7 +1110,7 @@ InputManager:
     axis: 5
     joyNum: 3
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick4
+    m_Name: ARW_XBoxDPadHorizontal_Joystick4
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1126,7 +1126,7 @@ InputManager:
     axis: 5
     joyNum: 4
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick5
+    m_Name: ARW_XBoxDPadHorizontal_Joystick5
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1142,7 +1142,7 @@ InputManager:
     axis: 5
     joyNum: 5
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick6
+    m_Name: ARW_XBoxDPadHorizontal_Joystick6
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1158,7 +1158,7 @@ InputManager:
     axis: 5
     joyNum: 6
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick7
+    m_Name: ARW_XBoxDPadHorizontal_Joystick7
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1174,7 +1174,7 @@ InputManager:
     axis: 5
     joyNum: 7
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick8
+    m_Name: ARW_XBoxDPadHorizontal_Joystick8
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1190,7 +1190,7 @@ InputManager:
     axis: 5
     joyNum: 8
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick9
+    m_Name: ARW_XBoxDPadHorizontal_Joystick9
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1206,7 +1206,7 @@ InputManager:
     axis: 5
     joyNum: 9
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick10
+    m_Name: ARW_XBoxDPadHorizontal_Joystick10
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1222,7 +1222,7 @@ InputManager:
     axis: 5
     joyNum: 10
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick11
+    m_Name: ARW_XBoxDPadHorizontal_Joystick11
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1238,7 +1238,7 @@ InputManager:
     axis: 5
     joyNum: 11
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick12
+    m_Name: ARW_XBoxDPadHorizontal_Joystick12
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1254,7 +1254,7 @@ InputManager:
     axis: 5
     joyNum: 12
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick13
+    m_Name: ARW_XBoxDPadHorizontal_Joystick13
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1270,7 +1270,7 @@ InputManager:
     axis: 5
     joyNum: 13
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick14
+    m_Name: ARW_XBoxDPadHorizontal_Joystick14
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1286,7 +1286,7 @@ InputManager:
     axis: 5
     joyNum: 14
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick15
+    m_Name: ARW_XBoxDPadHorizontal_Joystick15
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1302,7 +1302,7 @@ InputManager:
     axis: 5
     joyNum: 15
   - serializedVersion: 3
-    m_Name: ARW_DPadHorizontal_Joystick16
+    m_Name: ARW_XBoxDPadHorizontal_Joystick16
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1318,7 +1318,7 @@ InputManager:
     axis: 5
     joyNum: 16
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick1
+    m_Name: ARW_XBoxDPadVertical_Joystick1
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1334,7 +1334,7 @@ InputManager:
     axis: 6
     joyNum: 1
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick2
+    m_Name: ARW_XBoxDPadVertical_Joystick2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1350,7 +1350,7 @@ InputManager:
     axis: 6
     joyNum: 2
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick3
+    m_Name: ARW_XBoxDPadVertical_Joystick3
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1366,7 +1366,7 @@ InputManager:
     axis: 6
     joyNum: 3
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick4
+    m_Name: ARW_XBoxDPadVertical_Joystick4
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1382,7 +1382,7 @@ InputManager:
     axis: 6
     joyNum: 4
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick5
+    m_Name: ARW_XBoxDPadVertical_Joystick5
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1398,7 +1398,7 @@ InputManager:
     axis: 6
     joyNum: 5
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick6
+    m_Name: ARW_XBoxDPadVertical_Joystick6
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1414,7 +1414,7 @@ InputManager:
     axis: 6
     joyNum: 6
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick7
+    m_Name: ARW_XBoxDPadVertical_Joystick7
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1430,7 +1430,7 @@ InputManager:
     axis: 6
     joyNum: 7
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick8
+    m_Name: ARW_XBoxDPadVertical_Joystick8
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1446,7 +1446,7 @@ InputManager:
     axis: 6
     joyNum: 8
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick9
+    m_Name: ARW_XBoxDPadVertical_Joystick9
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1462,7 +1462,7 @@ InputManager:
     axis: 6
     joyNum: 9
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick10
+    m_Name: ARW_XBoxDPadVertical_Joystick10
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1478,7 +1478,7 @@ InputManager:
     axis: 6
     joyNum: 10
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick11
+    m_Name: ARW_XBoxDPadVertical_Joystick11
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1494,7 +1494,7 @@ InputManager:
     axis: 6
     joyNum: 11
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick12
+    m_Name: ARW_XBoxDPadVertical_Joystick12
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1510,7 +1510,7 @@ InputManager:
     axis: 6
     joyNum: 12
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick13
+    m_Name: ARW_XBoxDPadVertical_Joystick13
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1526,7 +1526,7 @@ InputManager:
     axis: 6
     joyNum: 13
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick14
+    m_Name: ARW_XBoxDPadVertical_Joystick14
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1542,7 +1542,7 @@ InputManager:
     axis: 6
     joyNum: 14
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick15
+    m_Name: ARW_XBoxDPadVertical_Joystick15
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1558,7 +1558,7 @@ InputManager:
     axis: 6
     joyNum: 15
   - serializedVersion: 3
-    m_Name: ARW_DPadVertical_Joystick16
+    m_Name: ARW_XBoxDPadVertical_Joystick16
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -1572,4 +1572,516 @@ InputManager:
     invert: 0
     type: 2
     axis: 6
+    joyNum: 16
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick3
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick4
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick5
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 5
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick6
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 6
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick7
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 7
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick8
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 8
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick9
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 9
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick10
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 10
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick11
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 11
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick12
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 12
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick13
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 13
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick14
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 14
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick15
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 15
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadHorizontal_Joystick16
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
+    joyNum: 16
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick3
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 3
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick4
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 4
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick5
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 5
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick6
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 6
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick7
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 7
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick8
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 8
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick9
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 9
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick10
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 10
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick11
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 11
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick12
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 12
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick13
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 13
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick14
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 14
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick15
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
+    joyNum: 15
+  - serializedVersion: 3
+    m_Name: ARW_PS4DPadVertical_Joystick16
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 7
     joyNum: 16

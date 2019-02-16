@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 public class ControllersManager {
+
+    private const string PS4_CONTROLLER_NAME = "Wireless Controller";
 
     private IEnumerable<int> joystickIndexes = Enumerable.Range(1, 16);
     private IEnumerable<int> controllerIndexes = Enumerable.Range(1, 2);
@@ -34,8 +37,30 @@ public class ControllersManager {
         axesNames[ControllerInput.Name.X] = GenerateInputAxesNames("ARW_X_Joystick{0}");
         axesNames[ControllerInput.Name.LeftStickHorizontal] = GenerateInputAxesNames("ARW_LeftStickHorizontal_Joystick{0}");
         axesNames[ControllerInput.Name.LeftStickVertical] = GenerateInputAxesNames("ARW_LeftStickVertical_Joystick{0}");
-        axesNames[ControllerInput.Name.DPadHorizontal] = GenerateInputAxesNames("ARW_DPadHorizontal_Joystick{0}");
-        axesNames[ControllerInput.Name.DPadVertical] = GenerateInputAxesNames("ARW_DPadVertical_Joystick{0}");
+        axesNames[ControllerInput.Name.XBoxDPadHorizontal] = GenerateInputAxesNames("ARW_XBoxDPadHorizontal_Joystick{0}");
+        axesNames[ControllerInput.Name.XBoxDPadVertical] = GenerateInputAxesNames("ARW_XBoxDPadVertical_Joystick{0}");
+        axesNames[ControllerInput.Name.PS4DPadHorizontal] = GenerateInputAxesNames("ARW_PS4DPadHorizontal_Joystick{0}");
+        axesNames[ControllerInput.Name.PS4DPadVertical] = GenerateInputAxesNames("ARW_PS4DPadVertical_Joystick{0}");
+    }
+
+    public ControllerInput.JoystickFamily? GetJoystickFamily(int joystickIndex) {
+        var joystickNames = Input.GetJoystickNames();
+        var enumerableIndex = joystickIndex - 1;
+
+        if (enumerableIndex >= joystickNames.Count()) {
+            Debug.LogError(string.Format("Joystick index {0} is out of bounds", joystickIndex));
+            return null;
+        }
+
+        return joystickNames[enumerableIndex] == PS4_CONTROLLER_NAME
+            ? ControllerInput.JoystickFamily.Playstation
+            : ControllerInput.JoystickFamily.XBox;
+    }
+
+    public ControllerInput.JoystickFamily GetControllerJoystickFamily(int controllerIndex) {
+        int joystickIndex = links[controllerIndex];
+
+        return GetJoystickFamily(joystickIndex).Value;
     }
 
     bool IsJoystickLinked(int joystickIndex) {
@@ -57,11 +82,13 @@ public class ControllersManager {
     }
 
     void LinkJoystick(int joystickIndex) {
-        if (!IsJoystickLinked(joystickIndex)) {
+        var joystickFamily = GetJoystickFamily(joystickIndex);
+
+        if (!IsJoystickLinked(joystickIndex) && joystickFamily.HasValue) {
             int? controllerIndex = GetFirstUnlinkedController();
 
             if (controllerIndex.HasValue) {
-                Debug.Log(string.Format("Controller {0} has been linked to Joystick {1}", controllerIndex, joystickIndex));
+                Debug.Log(string.Format("Controller {0} has been linked to Joystick {1} ({2} family)", controllerIndex, joystickIndex, joystickFamily.Value));
                 links[controllerIndex.Value] = joystickIndex;
             }
         }

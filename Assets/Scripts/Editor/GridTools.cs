@@ -98,12 +98,16 @@ public class GridTools {
 
         }
 
-        var firstSelector = cases.First().Value.GetComponent<ArrowCaseSelector>();
-
         UnityEventTools.AddIntPersistentListener(
             controllers[1].ReadyEvent,
-            new UnityAction<int>(firstSelector.SelectForPlayer),
+            new UnityAction<int>(cases.First().Value.GetComponent<ArrowCaseSelector>().SelectForPlayer),
             1
+        );
+
+        UnityEventTools.AddIntPersistentListener(
+            controllers[2].ReadyEvent,
+            new UnityAction<int>(cases.Last().Value.GetComponent<ArrowCaseSelector>().SelectForPlayer),
+            2
         );
 
         foreach (var arrowCaseItem in cases) {

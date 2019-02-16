@@ -6,12 +6,19 @@ using UnityEngine.Events;
 [System.Serializable]
 public abstract class ControllerInput {
 
+    public enum JoystickFamily {
+        XBox,
+        Playstation
+    }
+
     public enum Name {
         X,
         LeftStickHorizontal,
         LeftStickVertical,
-        DPadHorizontal,
-        DPadVertical,
+        XBoxDPadHorizontal,
+        XBoxDPadVertical,
+        PS4DPadHorizontal,
+        PS4DPadVertical,
     };
 
     [SerializeField]
@@ -50,23 +57,19 @@ public abstract class ControllerInput {
         }
     }
 
-    private Name name;
+    protected Name name;
     private bool on;
 
     public ControllerInput(Name name) {
         this.name = name;
     }
 
-    public abstract bool IsOn(string axisName);
+    public ControllerInput() {}
 
-    public bool IsOn(ControllersManager manager, int controllerIndex) {
-        string axisName = manager.GetAxisName(controllerIndex, name);
+    public abstract bool IsOn(int controllerIndex);
 
-        return IsOn(axisName);
-    }
-
-    public void Update(ControllersManager manager, int controllerIndex) {
-        if (IsOn(manager, controllerIndex)) {
+    public void Update(int controllerIndex) {
+        if (IsOn(controllerIndex)) {
             if (!on) {
                 turnOnEvent.Invoke();
             }
@@ -89,7 +92,9 @@ public class ControllerButton : ControllerInput {
 
     public ControllerButton(Name name) : base(name) {}
 
-    public override bool IsOn(string axisName) {
+    public override bool IsOn(int controllerIndex) {
+        string axisName = ControllersManager.Instance.GetAxisName(controllerIndex, name);
+
         return Input.GetButton(axisName);
     }
 
@@ -104,7 +109,9 @@ public class PositiveDirectionInput : ControllerInput {
         this.threshold = threshold;
     }
 
-    public override bool IsOn(string axisName) {
+    public override bool IsOn(int controllerIndex) {
+        string axisName = ControllersManager.Instance.GetAxisName(controllerIndex, name);
+
         return Input.GetAxis(axisName) > threshold;
     }
 
@@ -119,8 +126,43 @@ public class NegativeDirectionInput : ControllerInput {
         this.threshold = threshold;
     }
 
-    public override bool IsOn(string axisName) {
+    public override bool IsOn(int controllerIndex) {
+        string axisName = ControllersManager.Instance.GetAxisName(controllerIndex, name);
+
         return Input.GetAxis(axisName) < threshold;
+    }
+
+}
+
+[System.Serializable]
+public class DeadInput : ControllerInput {
+    public override bool IsOn(int controllerIndex) {
+        return false;
+    }
+}
+
+[System.Serializable]
+public class JoystickFamilySwitch : ControllerInput {
+
+    private ControllerInput mappedInput;
+    private Dictionary<JoystickFamily, ControllerInput> familyMap;
+
+    public JoystickFamilySwitch(Dictionary<JoystickFamily, ControllerInput> familyMap) {
+        this.familyMap = familyMap;
+    }
+
+    public override bool IsOn(int controllerIndex) {
+        if (mappedInput == null) {
+            var family = ControllersManager.Instance.GetControllerJoystickFamily(controllerIndex);
+
+            if (familyMap.ContainsKey(family)) {
+                mappedInput = familyMap[family];
+            } else {
+                mappedInput = new DeadInput();
+            }
+        }
+
+        return mappedInput.IsOn(controllerIndex);
     }
 
 }
