@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class GridTools {
 
     private static readonly int playersCount = 2;
-    private static readonly Vector2 gridSize = new Vector2(8, 5);
+    private static readonly Vector2 gridSize = new Vector2(14, 5);
 
     static Vector2 GetGridPosition(int index) {
         var yIndex = Mathf.FloorToInt(index / gridSize.x);
@@ -80,24 +80,28 @@ public class GridTools {
         var arrowCaseRectTransform = arrowCasePrefab.GetComponent<RectTransform>();
         var setup = grid.GetComponent<ArrowCaseSetup>();
         var gridRectTransform = grid.GetComponent<RectTransform>();
-        var layout = grid.GetComponent<GridLayoutGroup>();
-
-        layout.cellSize = arrowCaseRectTransform.sizeDelta;
-        layout.startCorner = GridLayoutGroup.Corner.LowerLeft;
 
         for (int index = 0; index < casesCount; ++index) {
             var position = GetGridPosition(index);
             var arrowCase = Object.Instantiate(arrowCasePrefab, Vector3.zero, Quaternion.identity);
             var selector = arrowCase.GetComponent<ArrowCaseSelector>();
             var direction = arrowCase.GetComponent<ArrowCaseDirection>();
+            var rectTransform = arrowCase.GetComponent<RectTransform>();
             var serializedSelector = new UnityEditor.SerializedObject(selector);
             var setupProperty = serializedSelector.FindProperty("setup");
-            
+
             setupProperty.objectReferenceValue = setup;
 
             serializedSelector.ApplyModifiedProperties();
 
             arrowCase.transform.SetParent(grid.transform);
+
+            rectTransform.anchorMin = Vector2.zero;
+            rectTransform.anchorMax = Vector2.zero;
+            rectTransform.anchoredPosition =
+                (position * arrowCaseRectTransform.sizeDelta.x) +
+                new Vector2(arrowCaseRectTransform.sizeDelta.x / 2, arrowCaseRectTransform.sizeDelta.x / 2);
+
             arrowCase.name = string.Format("ArrowCase {0} (Pos {1};{2})", index, position.x, position.y);
             cases[position] = arrowCase;
 
@@ -119,7 +123,6 @@ public class GridTools {
         var grid = new GameObject("Arrowar Grid");
         var gridRectTransform = grid.AddComponent<RectTransform>();
         var setup = grid.AddComponent<ArrowCaseSetup>();
-        var layout = grid.AddComponent<GridLayoutGroup>();
         var controllers = new Dictionary<int, Controller>();
 
         for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
