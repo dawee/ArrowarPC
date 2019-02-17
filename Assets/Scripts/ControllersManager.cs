@@ -34,13 +34,14 @@ public class ControllersManager {
     }
 
     private ControllersManager() {
-        axesNames[ControllerInput.Name.X] = GenerateInputAxesNames("ARW_X_Joystick{0}");
         axesNames[ControllerInput.Name.LeftStickHorizontal] = GenerateInputAxesNames("ARW_LeftStickHorizontal_Joystick{0}");
         axesNames[ControllerInput.Name.LeftStickVertical] = GenerateInputAxesNames("ARW_LeftStickVertical_Joystick{0}");
-        axesNames[ControllerInput.Name.XBoxDPadHorizontal] = GenerateInputAxesNames("ARW_XBoxDPadHorizontal_Joystick{0}");
-        axesNames[ControllerInput.Name.XBoxDPadVertical] = GenerateInputAxesNames("ARW_XBoxDPadVertical_Joystick{0}");
-        axesNames[ControllerInput.Name.PS4DPadHorizontal] = GenerateInputAxesNames("ARW_PS4DPadHorizontal_Joystick{0}");
-        axesNames[ControllerInput.Name.PS4DPadVertical] = GenerateInputAxesNames("ARW_PS4DPadVertical_Joystick{0}");
+        axesNames[ControllerInput.Name.XBox_DPadHorizontal] = GenerateInputAxesNames("ARW_XBox_DPadHorizontal_Joystick{0}");
+        axesNames[ControllerInput.Name.XBox_DPadVertical] = GenerateInputAxesNames("ARW_XBox_DPadVertical_Joystick{0}");
+        axesNames[ControllerInput.Name.XBox_A] = GenerateInputAxesNames("ARW_XBox_A_Joystick{0}");
+        axesNames[ControllerInput.Name.PS4_DPadHorizontal] = GenerateInputAxesNames("ARW_PS4_DPadHorizontal_Joystick{0}");
+        axesNames[ControllerInput.Name.PS4_DPadVertical] = GenerateInputAxesNames("ARW_PS4_DPadVertical_Joystick{0}");
+        axesNames[ControllerInput.Name.PS4_X] = GenerateInputAxesNames("ARW_PS4_X_Joystick{0}");
     }
 
     public ControllerInput.JoystickFamily? GetJoystickFamily(int joystickIndex) {
@@ -48,7 +49,6 @@ public class ControllersManager {
         var enumerableIndex = joystickIndex - 1;
 
         if (enumerableIndex >= joystickNames.Count()) {
-            Debug.LogError(string.Format("Joystick index {0} is out of bounds", joystickIndex));
             return null;
         }
 
@@ -94,12 +94,18 @@ public class ControllersManager {
         }
     }
 
-    bool IsJoystickXPressed(int joystickIndex) {
-        return Input.GetAxis(axesNames[ControllerInput.Name.X][joystickIndex]) == 1;
+    bool IsJoystickActionButtonPressed(int joystickIndex) {
+        var family = GetJoystickFamily(joystickIndex);
+
+        return (family.HasValue && (
+                (family.Value == ControllerInput.JoystickFamily.XBox && Input.GetButton(axesNames[ControllerInput.Name.XBox_A][joystickIndex])) ||
+                (family.Value == ControllerInput.JoystickFamily.Playstation && Input.GetButton(axesNames[ControllerInput.Name.PS4_X][joystickIndex]))
+            )
+        );
     }
 
     void CheckAndLinkJoystick(int joystickIndex) {
-        if (IsJoystickXPressed(joystickIndex)) {
+        if (IsJoystickActionButtonPressed(joystickIndex)) {
             LinkJoystick(joystickIndex);
         }
     }

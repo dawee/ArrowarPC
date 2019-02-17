@@ -22,73 +22,78 @@ public class Controller : MonoBehaviour {
     private State state = State.Initial;
 
     [SerializeField]
-    private ControllerButton xInput = new ControllerButton(ControllerInput.Name.X);
+    private JoystickFamilySwitch downButtonInput = new JoystickFamilySwitch(
+        new Dictionary<ControllerInput.JoystickFamily, ControllerInput>() {
+            {ControllerInput.JoystickFamily.Playstation, new ControllerButton(ControllerInput.Name.PS4_X)},
+            {ControllerInput.JoystickFamily.XBox, new ControllerButton(ControllerInput.Name.XBox_A)},
+        }
+    );
 
-    public ControllerButton XInput {
+    public JoystickFamilySwitch DownButton {
         get {
-            return xInput;
+            return downButtonInput;
         }
     }
 
     [SerializeField]
-    private JoystickFamilySwitch leftInput = new JoystickFamilySwitch(
+    private JoystickFamilySwitch dPadLeftInput = new JoystickFamilySwitch(
         new Dictionary<ControllerInput.JoystickFamily, ControllerInput> () {
-            {ControllerInput.JoystickFamily.Playstation, new NegativeDirectionInput(ControllerInput.Name.PS4DPadHorizontal)},
-            {ControllerInput.JoystickFamily.XBox, new NegativeDirectionInput(ControllerInput.Name.XBoxDPadHorizontal)},
+            {ControllerInput.JoystickFamily.Playstation, new NegativeDirectionInput(ControllerInput.Name.PS4_DPadHorizontal)},
+            {ControllerInput.JoystickFamily.XBox, new NegativeDirectionInput(ControllerInput.Name.XBox_DPadHorizontal)},
         }
         
 
     );
 
-    public JoystickFamilySwitch LeftInput {
+    public JoystickFamilySwitch DPadLeft {
         get {
-            return leftInput;
+            return dPadLeftInput;
         }
     }
 
     [SerializeField]
-    private JoystickFamilySwitch rightInput = new JoystickFamilySwitch(
+    private JoystickFamilySwitch dPadRightInput = new JoystickFamilySwitch(
         new Dictionary<ControllerInput.JoystickFamily, ControllerInput> () {
-            {ControllerInput.JoystickFamily.Playstation, new PositiveDirectionInput(ControllerInput.Name.PS4DPadHorizontal)},
-            {ControllerInput.JoystickFamily.XBox, new PositiveDirectionInput(ControllerInput.Name.XBoxDPadHorizontal)},
+            {ControllerInput.JoystickFamily.Playstation, new PositiveDirectionInput(ControllerInput.Name.PS4_DPadHorizontal)},
+            {ControllerInput.JoystickFamily.XBox, new PositiveDirectionInput(ControllerInput.Name.XBox_DPadHorizontal)},
         }
         
 
     );
 
-    public JoystickFamilySwitch RightInput {
+    public JoystickFamilySwitch DPadRight {
         get {
-            return rightInput;
+            return dPadRightInput;
         }
     }
 
     [SerializeField]
-    private JoystickFamilySwitch downInput = new JoystickFamilySwitch(
+    private JoystickFamilySwitch dPadDownInput = new JoystickFamilySwitch(
         new Dictionary<ControllerInput.JoystickFamily, ControllerInput> () {
-            {ControllerInput.JoystickFamily.Playstation, new NegativeDirectionInput(ControllerInput.Name.PS4DPadVertical)},
-            {ControllerInput.JoystickFamily.XBox, new NegativeDirectionInput(ControllerInput.Name.XBoxDPadVertical)},
+            {ControllerInput.JoystickFamily.Playstation, new NegativeDirectionInput(ControllerInput.Name.PS4_DPadVertical)},
+            {ControllerInput.JoystickFamily.XBox, new NegativeDirectionInput(ControllerInput.Name.XBox_DPadVertical)},
         }
         
 
     );
 
-    public JoystickFamilySwitch DownInput {
+    public JoystickFamilySwitch DPadDown {
         get {
-            return downInput;
+            return dPadDownInput;
         }
     }
 
     [SerializeField]
-    private JoystickFamilySwitch upInput = new JoystickFamilySwitch(
+    private JoystickFamilySwitch dPadUpInput = new JoystickFamilySwitch(
         new Dictionary<ControllerInput.JoystickFamily, ControllerInput> () {
-            {ControllerInput.JoystickFamily.Playstation, new PositiveDirectionInput(ControllerInput.Name.PS4DPadVertical)},
-            {ControllerInput.JoystickFamily.XBox, new PositiveDirectionInput(ControllerInput.Name.XBoxDPadVertical)},
+            {ControllerInput.JoystickFamily.Playstation, new PositiveDirectionInput(ControllerInput.Name.PS4_DPadVertical)},
+            {ControllerInput.JoystickFamily.XBox, new PositiveDirectionInput(ControllerInput.Name.XBox_DPadVertical)},
         }
     );
 
-    public JoystickFamilySwitch UpInput {
+    public JoystickFamilySwitch DPadUp {
         get {
-            return upInput;
+            return dPadUpInput;
         }
     }
 
@@ -102,17 +107,17 @@ public class Controller : MonoBehaviour {
                 }
                 break;
             case State.Linked:
-                if (!XInput.IsOn(Index)) {
+                if (!DownButton.IsOn(Index)) {
                     state = State.Ready;
                     readyEvent.Invoke();
                 }
                 break;
             case State.Ready:
-                XInput.Update(Index);
-                LeftInput.Update(Index);
-                RightInput.Update(Index);
-                UpInput.Update(Index);
-                DownInput.Update(Index);
+                DownButton.Update(Index);
+                DPadLeft.Update(Index);
+                DPadRight.Update(Index);
+                DPadDown.Update(Index);
+                DPadUp.Update(Index);
                 break;
             default:
                 break;            

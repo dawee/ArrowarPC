@@ -12,19 +12,20 @@ public abstract class ControllerInput {
     }
 
     public enum Name {
-        X,
         LeftStickHorizontal,
         LeftStickVertical,
-        XBoxDPadHorizontal,
-        XBoxDPadVertical,
-        PS4DPadHorizontal,
-        PS4DPadVertical,
+        XBox_DPadHorizontal,
+        XBox_DPadVertical,
+        XBox_A,
+        PS4_DPadHorizontal,
+        PS4_DPadVertical,
+        PS4_X,
     };
 
     [SerializeField]
     private UnityEvent onEvent = new UnityEvent();
 
-    public UnityEvent OnEvent {
+    public UnityEvent On {
         get {
             return onEvent;
         }
@@ -33,7 +34,7 @@ public abstract class ControllerInput {
     [SerializeField]
     private UnityEvent offEvent = new UnityEvent();
 
-    public UnityEvent OffEvent {
+    public UnityEvent Off {
         get {
             return offEvent;
         }
@@ -42,7 +43,7 @@ public abstract class ControllerInput {
     [SerializeField]
     private UnityEvent turnOnEvent = new UnityEvent();
 
-    public UnityEvent TurnOnEvent {
+    public UnityEvent TurnOn {
         get {
             return turnOnEvent;
         }
@@ -51,7 +52,7 @@ public abstract class ControllerInput {
     [SerializeField]
     private UnityEvent turnOffEvent = new UnityEvent();
 
-    public UnityEvent TurnOffEvent {
+    public UnityEvent TurnOff {
         get {
             return turnOffEvent;
         }

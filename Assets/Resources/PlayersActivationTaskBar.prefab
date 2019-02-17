@@ -65,7 +65,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  xInput:
+  downButtonInput:
     onEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -86,7 +86,7 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  leftInput:
+  dPadLeftInput:
     onEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -107,7 +107,7 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  rightInput:
+  dPadRightInput:
     onEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -128,7 +128,7 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  downInput:
+  dPadDownInput:
     onEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -149,7 +149,7 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  upInput:
+  dPadUpInput:
     onEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -235,7 +235,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  xInput:
+  downButtonInput:
     onEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -256,7 +256,7 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  leftInput:
+  dPadLeftInput:
     onEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -277,7 +277,7 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  rightInput:
+  dPadRightInput:
     onEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -298,7 +298,7 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  downInput:
+  dPadDownInput:
     onEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -319,7 +319,7 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  upInput:
+  dPadUpInput:
     onEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -621,7 +621,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Player 1
 
-    Press X or B
+    Press X or A
 
     To join'
 --- !u!1 &6070640031282467361
@@ -797,7 +797,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Player 2
 
-    Press X or B
+    Press X or A
 
     To join'
 --- !u!1 &7978285617591548650

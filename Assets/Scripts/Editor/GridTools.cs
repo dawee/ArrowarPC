@@ -39,36 +39,35 @@ public class GridTools {
     static void  AddSelectorDirectionChangeListeners(ArrowCaseDirection direction, Dictionary<int, Controller> controllers) {
         for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
             UnityEventTools.AddIntPersistentListener(
-                controllers[playerIndex].XInput.TurnOnEvent,
+                controllers[playerIndex].DownButton.TurnOn,
                 new UnityAction<int>(direction.ChangeDirection),
                 playerIndex
             );
         }
     }
 
-
     static void AddSelectorMoveRequestListeners(ArrowCaseSelector selector, Dictionary<int, Controller> controllers) {
         for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
             UnityEventTools.AddIntPersistentListener(
-                controllers[playerIndex].LeftInput.TurnOnEvent,
+                controllers[playerIndex].DPadLeft.TurnOn,
                 new UnityAction<int>(selector.RequestMoveLeft),
                 playerIndex
             );
 
             UnityEventTools.AddIntPersistentListener(
-                controllers[playerIndex].RightInput.TurnOnEvent,
+                controllers[playerIndex].DPadRight.TurnOn,
                 new UnityAction<int>(selector.RequestMoveRight),
                 playerIndex
             );
 
             UnityEventTools.AddIntPersistentListener(
-                controllers[playerIndex].DownInput.TurnOnEvent,
+                controllers[playerIndex].DPadDown.TurnOn,
                 new UnityAction<int>(selector.RequestMoveDown),
                 playerIndex
             );
 
             UnityEventTools.AddIntPersistentListener(
-                controllers[playerIndex].UpInput.TurnOnEvent,
+                controllers[playerIndex].DPadUp.TurnOn,
                 new UnityAction<int>(selector.RequestMoveUp),
                 playerIndex
             );
