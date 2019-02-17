@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowCaseDirection : MonoBehaviour
+public class TileDirection : MonoBehaviour
 {
     private enum Direction {
         Up = 0,
@@ -15,7 +15,7 @@ public class ArrowCaseDirection : MonoBehaviour
     private Animator animator = default;
 
     [SerializeField]
-    private ArrowCaseSelector arrowCaseSelector = default;
+    private TileSelector TileSelector = default;
 
     private Direction currentDirection = default;
 
@@ -25,7 +25,7 @@ public class ArrowCaseDirection : MonoBehaviour
     }
 
     public void ChangeDirection(int playerIndex) {
-        if (arrowCaseSelector.PlayerIndex != playerIndex) {
+        if (TileSelector.PlayerIndex != playerIndex) {
             return;
         }
 

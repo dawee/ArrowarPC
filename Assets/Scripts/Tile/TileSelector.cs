@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ArrowCaseSelector : MonoBehaviour {
+public class TileSelector : MonoBehaviour {
 
     [SerializeField]
     private Animator animator = default;
 
     [SerializeField]
-    private ArrowCaseMoveSelection move = new ArrowCaseMoveSelection();
+    private TileMoveSelection move = new TileMoveSelection();
 
     [SerializeField]
-    private ArrowCaseSetup setup = default;
+    private TileSetup setup = default;
 
     private int playerIndex;
     private int lastMoveFrame = 0;
 
-    public ArrowCaseMoveSelection Move {
+    public TileMoveSelection Move {
         get {
             return move;
         }
@@ -56,9 +56,9 @@ public class ArrowCaseSelector : MonoBehaviour {
     public void RequestMoveLeft(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Left.Invoke(
-                new ArrowCaseMoveSelection.Data(
+                new TileMoveSelection.Data(
                     this,
-                    ArrowCaseMoveSelection.Data.Direction.Left
+                    TileMoveSelection.Data.Direction.Left
                 )
             );
         }
@@ -67,9 +67,9 @@ public class ArrowCaseSelector : MonoBehaviour {
     public void RequestMoveRight(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Right.Invoke(
-                new ArrowCaseMoveSelection.Data(
+                new TileMoveSelection.Data(
                     this,
-                    ArrowCaseMoveSelection.Data.Direction.Right
+                    TileMoveSelection.Data.Direction.Right
                 )
             );
         }
@@ -78,9 +78,9 @@ public class ArrowCaseSelector : MonoBehaviour {
     public void RequestMoveDown(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Down.Invoke(
-                new ArrowCaseMoveSelection.Data(
+                new TileMoveSelection.Data(
                     this,
-                    ArrowCaseMoveSelection.Data.Direction.Down
+                    TileMoveSelection.Data.Direction.Down
                 )
             );
         }
@@ -89,28 +89,28 @@ public class ArrowCaseSelector : MonoBehaviour {
     public void RequestMoveUp(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Up.Invoke(
-                new ArrowCaseMoveSelection.Data(
+                new TileMoveSelection.Data(
                     this,
-                    ArrowCaseMoveSelection.Data.Direction.Up
+                    TileMoveSelection.Data.Direction.Up
                 )
             );
         }
     }
 
-    public void StealSelectionFrom(ArrowCaseMoveSelection.Data data) {
+    public void StealSelectionFrom(TileMoveSelection.Data data) {
         if (CanChangeSelection() && data.Origin.HasSelection()) {
             if (HasSelection()) {
                 switch(data.InitialDirection) {
-                    case ArrowCaseMoveSelection.Data.Direction.Left:
+                    case TileMoveSelection.Data.Direction.Left:
                         move.Left.Invoke(data);
                         break;
-                    case ArrowCaseMoveSelection.Data.Direction.Right:
+                    case TileMoveSelection.Data.Direction.Right:
                         move.Right.Invoke(data);
                         break;
-                    case ArrowCaseMoveSelection.Data.Direction.Down:
+                    case TileMoveSelection.Data.Direction.Down:
                         move.Down.Invoke(data);
                         break;
-                    case ArrowCaseMoveSelection.Data.Direction.Up:
+                    case TileMoveSelection.Data.Direction.Up:
                         move.Up.Invoke(data);
                         break;
                 };

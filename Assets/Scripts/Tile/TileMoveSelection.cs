@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class ArrowCaseMoveSelection {
+public class TileMoveSelection {
 
     [System.Serializable]
     public class Data {
@@ -15,10 +15,10 @@ public class ArrowCaseMoveSelection {
             Up
         }
 
-        public ArrowCaseSelector Origin { get; private set; }
+        public TileSelector Origin { get; private set; }
         public Direction InitialDirection { get; private set; }
 
-        public Data(ArrowCaseSelector origin, Direction initialDirection) {
+        public Data(TileSelector origin, Direction initialDirection) {
             Origin = origin;
             InitialDirection = initialDirection;
         }

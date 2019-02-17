@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ArrowCaseSetup : MonoBehaviour {
+public class TileSetup : MonoBehaviour {
 
     [SerializeField]
     private float minTimeBetweenSelections = 0.2f;

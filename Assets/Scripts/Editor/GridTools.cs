@@ -40,23 +40,22 @@ public class GridTools {
         return new Vector2(xIndex, yIndex);
     }
 
-    static void ConnectNearCase(
-        Dictionary<Vector2, GameObject> cases,
+    static void ConnectNearTile(
+        Dictionary<Vector2, GameObject> tiles,
         Vector2 nearPosition,
-        ArrowCaseSelector selector,
-        ArrowCaseMoveSelection.EventType moveEvent
+        TileSelector selector,
+        TileMoveSelection.EventType moveEvent
     ) {
-        if (cases.ContainsKey(nearPosition)) {
-            var nearCase = cases[nearPosition];
-            var nearSelector = nearCase.GetComponent<ArrowCaseSelector>();
-            var action = new UnityAction<ArrowCaseMoveSelection.Data>(nearSelector.StealSelectionFrom);
+        if (tiles.ContainsKey(nearPosition)) {
+            var nearCase = tiles[nearPosition];
+            var nearSelector = nearCase.GetComponent<TileSelector>();
+            var action = new UnityAction<TileMoveSelection.Data>(nearSelector.StealSelectionFrom);
 
             UnityEventTools.AddPersistentListener(moveEvent, action);
         }
     }
-
-
-    static void  AddSelectorDirectionChangeListeners(ArrowCaseDirection direction, Dictionary<int, Controller> controllers) {
+    
+    static void  AddSelectorDirectionChangeListeners(TileDirection direction, Dictionary<int, Controller> controllers) {
         for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
             UnityEventTools.AddIntPersistentListener(
                 controllers[playerIndex].DownButton.TurnOn,
@@ -66,7 +65,7 @@ public class GridTools {
         }
     }
 
-    static void AddSelectorMoveRequestListeners(ArrowCaseSelector selector, Dictionary<int, Controller> controllers) {
+    static void AddSelectorMoveRequestListeners(TileSelector selector, Dictionary<int, Controller> controllers) {
         for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
             UnityEventTools.AddIntPersistentListener(
                 controllers[playerIndex].DPadLeft.TurnOn,
@@ -94,21 +93,21 @@ public class GridTools {
         }
     }
 
-    static Dictionary<Vector2, GameObject> CreateArrowCases(int casesCount, GameObject grid, Dictionary<int, Controller> controllers) {
-        var cases = new Dictionary<Vector2, GameObject>();
-        var arrowCasePrefab = Resources.Load<GameObject>("ArrowCase");
-        var arrowCaseRectTransform = arrowCasePrefab.GetComponent<RectTransform>();
-        var setup = grid.GetComponent<ArrowCaseSetup>();
+    static Dictionary<Vector2, GameObject> CreateTiles(int tilesCount, GameObject grid, Dictionary<int, Controller> controllers) {
+        var tiles = new Dictionary<Vector2, GameObject>();
+        var TilePrefab = Resources.Load<GameObject>("Tile");
+        var TileRectTransform = TilePrefab.GetComponent<RectTransform>();
+        var setup = grid.GetComponent<TileSetup>();
         var gridRectTransform = grid.GetComponent<RectTransform>();
 
-        for (int index = 0; index < casesCount; ++index) {
+        for (int index = 0; index < tilesCount; ++index) {
             var position = GetGridPosition(index);
 
             if (!deadCells.Contains(position)) {
-                var arrowCase = Object.Instantiate(arrowCasePrefab, Vector3.zero, Quaternion.identity);
-                var selector = arrowCase.GetComponent<ArrowCaseSelector>();
-                var direction = arrowCase.GetComponent<ArrowCaseDirection>();
-                var rectTransform = arrowCase.GetComponent<RectTransform>();
+                var Tile = Object.Instantiate(TilePrefab, Vector3.zero, Quaternion.identity);
+                var selector = Tile.GetComponent<TileSelector>();
+                var direction = Tile.GetComponent<TileDirection>();
+                var rectTransform = Tile.GetComponent<RectTransform>();
                 var serializedSelector = new UnityEditor.SerializedObject(selector);
                 var setupProperty = serializedSelector.FindProperty("setup");
 
@@ -116,16 +115,16 @@ public class GridTools {
 
                 serializedSelector.ApplyModifiedProperties();
 
-                arrowCase.transform.SetParent(grid.transform);
+                Tile.transform.SetParent(grid.transform);
 
                 rectTransform.anchorMin = Vector2.zero;
                 rectTransform.anchorMax = Vector2.zero;
                 rectTransform.anchoredPosition =
-                    (position * arrowCaseRectTransform.sizeDelta.x) +
-                    new Vector2(arrowCaseRectTransform.sizeDelta.x / 2, arrowCaseRectTransform.sizeDelta.x / 2);
+                    (position * TileRectTransform.sizeDelta.x) +
+                    new Vector2(TileRectTransform.sizeDelta.x / 2, TileRectTransform.sizeDelta.x / 2);
 
-                arrowCase.name = string.Format("ArrowCase Pos {1};{2}", index, position.x, position.y);
-                cases[position] = arrowCase;
+                Tile.name = string.Format("Tile Pos {1};{2}", index, position.x, position.y);
+                tiles[position] = Tile;
 
                 AddSelectorMoveRequestListeners(selector, controllers);
                 AddSelectorDirectionChangeListeners(direction, controllers);
@@ -133,19 +132,19 @@ public class GridTools {
         }
 
         gridRectTransform.sizeDelta = new Vector2(
-            gridSize.x * arrowCaseRectTransform.sizeDelta.x,
-            gridSize.y * arrowCaseRectTransform.sizeDelta.y
+            gridSize.x * TileRectTransform.sizeDelta.x,
+            gridSize.y * TileRectTransform.sizeDelta.y
         );
 
-        return cases;
+        return tiles;
     }
 
     [MenuItem("GameObject/UI/Arrowar Grid")]
     static void CreateGrid() {
-        var casesCount = Mathf.RoundToInt(gridSize.x * gridSize.y);
+        var tilesCount = Mathf.RoundToInt(gridSize.x * gridSize.y);
         var grid = new GameObject("Arrowar Grid");
         var gridRectTransform = grid.AddComponent<RectTransform>();
-        var setup = grid.AddComponent<ArrowCaseSetup>();
+        var setup = grid.AddComponent<TileSetup>();
         var controllers = new Dictionary<int, Controller>();
 
         for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
@@ -153,48 +152,48 @@ public class GridTools {
             controllers[playerIndex].Index = playerIndex;
         }
 
-        var cases = CreateArrowCases(casesCount, grid, controllers);
+        var tiles = CreateTiles(tilesCount, grid, controllers);
 
         UnityEventTools.AddIntPersistentListener(
             controllers[1].ReadyEvent,
-            new UnityAction<int>(cases.First().Value.GetComponent<ArrowCaseSelector>().SelectForPlayer),
+            new UnityAction<int>(tiles.First().Value.GetComponent<TileSelector>().SelectForPlayer),
             1
         );
 
         UnityEventTools.AddIntPersistentListener(
             controllers[2].ReadyEvent,
-            new UnityAction<int>(cases.Last().Value.GetComponent<ArrowCaseSelector>().SelectForPlayer),
+            new UnityAction<int>(tiles.Last().Value.GetComponent<TileSelector>().SelectForPlayer),
             2
         );
 
-        foreach (var arrowCaseItem in cases) {
-            var arrowCase = arrowCaseItem.Value;
-            var selector = arrowCase.GetComponent<ArrowCaseSelector>();
+        foreach (var TileItem in tiles) {
+            var Tile = TileItem.Value;
+            var selector = Tile.GetComponent<TileSelector>();
 
-            ConnectNearCase(
-                cases,
-                arrowCaseItem.Key + Vector2.left,
+            ConnectNearTile(
+                tiles,
+                TileItem.Key + Vector2.left,
                 selector,
                 selector.Move.Left
             );
 
-            ConnectNearCase(
-                cases,
-                arrowCaseItem.Key + Vector2.right,
+            ConnectNearTile(
+                tiles,
+                TileItem.Key + Vector2.right,
                 selector,
                 selector.Move.Right
             );
 
-            ConnectNearCase(
-                cases,
-                arrowCaseItem.Key + Vector2.down,
+            ConnectNearTile(
+                tiles,
+                TileItem.Key + Vector2.down,
                 selector,
                 selector.Move.Down
             );
 
-            ConnectNearCase(
-                cases,
-                arrowCaseItem.Key + Vector2.up,
+            ConnectNearTile(
+                tiles,
+                TileItem.Key + Vector2.up,
                 selector,
                 selector.Move.Up
             );
