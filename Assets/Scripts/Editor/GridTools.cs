@@ -11,7 +11,27 @@ using UnityEngine.UI;
 public class GridTools {
 
     private static readonly int playersCount = 2;
-    private static readonly Vector2 gridSize = new Vector2(14, 5);
+    private static readonly Vector2 playerBaseSize = new Vector2(3, 2);
+    private static readonly Vector2 gridSize = new Vector2(14, 6);
+    private static readonly Vector2[] deadCells = InitDeadCells();
+
+    static Vector2[] InitDeadCells() {
+        return Enumerable
+            .Range(0, Mathf.RoundToInt(playerBaseSize.x))
+            .Select(x =>
+                Enumerable
+                    .Range(0, Mathf.RoundToInt(playerBaseSize.y))
+                    .Select(y => new Vector2[] {
+                        new Vector2(x, y),
+                        new Vector2(gridSize.x - x - 1, y)
+                    })
+                    .SelectMany(a => a)
+                    .Distinct()
+            )
+            .SelectMany(a => a)
+            .Distinct()
+            .ToArray();
+    }
 
     static Vector2 GetGridPosition(int index) {
         var yIndex = Mathf.FloorToInt(index / gridSize.x);
@@ -83,30 +103,33 @@ public class GridTools {
 
         for (int index = 0; index < casesCount; ++index) {
             var position = GetGridPosition(index);
-            var arrowCase = Object.Instantiate(arrowCasePrefab, Vector3.zero, Quaternion.identity);
-            var selector = arrowCase.GetComponent<ArrowCaseSelector>();
-            var direction = arrowCase.GetComponent<ArrowCaseDirection>();
-            var rectTransform = arrowCase.GetComponent<RectTransform>();
-            var serializedSelector = new UnityEditor.SerializedObject(selector);
-            var setupProperty = serializedSelector.FindProperty("setup");
 
-            setupProperty.objectReferenceValue = setup;
+            if (!deadCells.Contains(position)) {
+                var arrowCase = Object.Instantiate(arrowCasePrefab, Vector3.zero, Quaternion.identity);
+                var selector = arrowCase.GetComponent<ArrowCaseSelector>();
+                var direction = arrowCase.GetComponent<ArrowCaseDirection>();
+                var rectTransform = arrowCase.GetComponent<RectTransform>();
+                var serializedSelector = new UnityEditor.SerializedObject(selector);
+                var setupProperty = serializedSelector.FindProperty("setup");
 
-            serializedSelector.ApplyModifiedProperties();
+                setupProperty.objectReferenceValue = setup;
 
-            arrowCase.transform.SetParent(grid.transform);
+                serializedSelector.ApplyModifiedProperties();
 
-            rectTransform.anchorMin = Vector2.zero;
-            rectTransform.anchorMax = Vector2.zero;
-            rectTransform.anchoredPosition =
-                (position * arrowCaseRectTransform.sizeDelta.x) +
-                new Vector2(arrowCaseRectTransform.sizeDelta.x / 2, arrowCaseRectTransform.sizeDelta.x / 2);
+                arrowCase.transform.SetParent(grid.transform);
 
-            arrowCase.name = string.Format("ArrowCase {0} (Pos {1};{2})", index, position.x, position.y);
-            cases[position] = arrowCase;
+                rectTransform.anchorMin = Vector2.zero;
+                rectTransform.anchorMax = Vector2.zero;
+                rectTransform.anchoredPosition =
+                    (position * arrowCaseRectTransform.sizeDelta.x) +
+                    new Vector2(arrowCaseRectTransform.sizeDelta.x / 2, arrowCaseRectTransform.sizeDelta.x / 2);
 
-            AddSelectorMoveRequestListeners(selector, controllers);
-            AddSelectorDirectionChangeListeners(direction, controllers);
+                arrowCase.name = string.Format("ArrowCase Pos {1};{2}", index, position.x, position.y);
+                cases[position] = arrowCase;
+
+                AddSelectorMoveRequestListeners(selector, controllers);
+                AddSelectorDirectionChangeListeners(direction, controllers);
+            }
         }
 
         gridRectTransform.sizeDelta = new Vector2(
