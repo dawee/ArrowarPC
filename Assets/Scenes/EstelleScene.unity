@@ -748,11 +748,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 212318494}
     m_Modifications:
-    - target: {fileID: 5822930259165770185, guid: 0fcb535790f5ce64f88b66aadba7308a,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerArmor
-      objectReference: {fileID: 0}
     - target: {fileID: 5822930259165770184, guid: 0fcb535790f5ce64f88b66aadba7308a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -857,6 +852,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5822930259165770185, guid: 0fcb535790f5ce64f88b66aadba7308a,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerArmor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fcb535790f5ce64f88b66aadba7308a, type: 3}
@@ -1038,11 +1038,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 426789360}
     m_Modifications:
-    - target: {fileID: 5822930259165770185, guid: e7125a478c0989e46a14dcb03661fedd,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerHealth
-      objectReference: {fileID: 0}
     - target: {fileID: 5822930259165770184, guid: e7125a478c0989e46a14dcb03661fedd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1147,6 +1142,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5822930259165770185, guid: e7125a478c0989e46a14dcb03661fedd,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerHealth
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7125a478c0989e46a14dcb03661fedd, type: 3}

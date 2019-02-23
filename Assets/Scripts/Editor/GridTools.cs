@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class GridTools {
 
     private static readonly int playersCount = 2;
-    private static readonly Vector2 playerBaseSize = new Vector2(3, 2);
+    private static readonly Vector2 playerBaseSize = new Vector2(2, 2);
     private static readonly Vector2 gridSize = new Vector2(14, 6);
     private static readonly Vector2[] deadCells = InitDeadCells();
 
@@ -95,8 +95,8 @@ public class GridTools {
 
     static Dictionary<Vector2, GameObject> CreateTiles(int tilesCount, GameObject grid, Dictionary<int, Controller> controllers) {
         var tiles = new Dictionary<Vector2, GameObject>();
-        var TilePrefab = Resources.Load<GameObject>("Tile");
-        var TileRectTransform = TilePrefab.GetComponent<RectTransform>();
+        var tilePrefab = Resources.Load<GameObject>("Tile");
+        var TileRectTransform = tilePrefab.GetComponent<RectTransform>();
         var setup = grid.GetComponent<TileSetup>();
         var gridRectTransform = grid.GetComponent<RectTransform>();
 
@@ -104,10 +104,10 @@ public class GridTools {
             var position = GetGridPosition(index);
 
             if (!deadCells.Contains(position)) {
-                var Tile = Object.Instantiate(TilePrefab, Vector3.zero, Quaternion.identity);
-                var selector = Tile.GetComponent<TileSelector>();
-                var direction = Tile.GetComponent<TileDirection>();
-                var rectTransform = Tile.GetComponent<RectTransform>();
+                var tile = Object.Instantiate(tilePrefab, Vector3.zero, Quaternion.identity);
+                var selector = tile.GetComponent<TileSelector>();
+                var direction = tile.GetComponent<TileDirection>();
+                var rectTransform = tile.GetComponent<RectTransform>();
                 var serializedSelector = new UnityEditor.SerializedObject(selector);
                 var setupProperty = serializedSelector.FindProperty("setup");
 
@@ -115,7 +115,7 @@ public class GridTools {
 
                 serializedSelector.ApplyModifiedProperties();
 
-                Tile.transform.SetParent(grid.transform);
+                tile.transform.SetParent(grid.transform);
 
                 rectTransform.anchorMin = Vector2.zero;
                 rectTransform.anchorMax = Vector2.zero;
@@ -123,8 +123,8 @@ public class GridTools {
                     (position * TileRectTransform.sizeDelta.x) +
                     new Vector2(TileRectTransform.sizeDelta.x / 2, TileRectTransform.sizeDelta.x / 2);
 
-                Tile.name = string.Format("Tile Pos {1};{2}", index, position.x, position.y);
-                tiles[position] = Tile;
+                tile.name = string.Format("Tile Pos {1};{2}", index, position.x, position.y);
+                tiles[position] = tile;
 
                 AddSelectorMoveRequestListeners(selector, controllers);
                 AddSelectorDirectionChangeListeners(direction, controllers);
@@ -146,6 +146,8 @@ public class GridTools {
         var gridRectTransform = grid.AddComponent<RectTransform>();
         var setup = grid.AddComponent<TileSetup>();
         var controllers = new Dictionary<int, Controller>();
+        var player1AreaPrefab = Resources.Load<GameObject>("Player1");
+        var player2AreaPrefab = Resources.Load<GameObject>("Player2");
 
         for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
             controllers[playerIndex] = grid.AddComponent<Controller>();
@@ -202,6 +204,15 @@ public class GridTools {
         if (Selection.activeGameObject) {
             grid.transform.SetParent(Selection.activeGameObject.transform);
         }
+
+        var player1Area = Object.Instantiate(player1AreaPrefab, Vector3.zero, Quaternion.identity);
+        var player2Area = Object.Instantiate(player2AreaPrefab, Vector3.zero, Quaternion.identity);
+
+        player1Area.transform.SetParent(grid.transform);
+        player1Area.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+
+        player2Area.transform.SetParent(grid.transform);
+        player2Area.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
         gridRectTransform.anchoredPosition = Vector2.zero;
         gridRectTransform.localPosition = Vector2.zero;
