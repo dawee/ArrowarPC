@@ -104,7 +104,7 @@ public class GridTools {
             var position = GetGridPosition(index);
 
             if (!deadCells.Contains(position)) {
-                var tile = Object.Instantiate(tilePrefab, Vector3.zero, Quaternion.identity);
+                var tile = PrefabUtility.InstantiatePrefab(tilePrefab) as GameObject;
                 var selector = tile.GetComponent<TileSelector>();
                 var direction = tile.GetComponent<TileDirection>();
                 var rectTransform = tile.GetComponent<RectTransform>();
@@ -205,8 +205,8 @@ public class GridTools {
             grid.transform.SetParent(Selection.activeGameObject.transform);
         }
 
-        var player1Area = Object.Instantiate(player1AreaPrefab, Vector3.zero, Quaternion.identity);
-        var player2Area = Object.Instantiate(player2AreaPrefab, Vector3.zero, Quaternion.identity);
+        var player1Area = PrefabUtility.InstantiatePrefab(player1AreaPrefab) as GameObject;
+        var player2Area = PrefabUtility.InstantiatePrefab(player2AreaPrefab) as GameObject;
 
         player1Area.transform.SetParent(grid.transform);
         player1Area.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
