@@ -6,32 +6,32 @@ using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField]
-    private Image[] healthImages;
+    private Animator[] healthAnimators;
 
     [SerializeField]
-    private Image[] armorImages;
+    private Animator[] armorAnimators;
 
     private int health = 3;
     private int armor = 3;
 
-    private void SetVisibleItems(Image[] images, int count)
+    private void SetVisibleItems(Animator[] animators, int count)
     {
-        for (var i = 0; i < images.Length; i++)
+        for (var i = 0; i < animators.Length; i++)
         {
-            images[i].enabled = i < count;
+            animators[i].SetBool("visible", i  < count);
         }
     }
 
     private void SetHealth(int val)
     {
         health = val;
-        SetVisibleItems(healthImages, val);
+        SetVisibleItems(healthAnimators, val);
     }
 
     private void SetArmor(int val)
     {
         armor = val;
-        SetVisibleItems(armorImages, val);
+        SetVisibleItems(armorAnimators, val);
     }
 
     public void Reset()
