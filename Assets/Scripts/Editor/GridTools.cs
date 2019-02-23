@@ -96,7 +96,7 @@ public class GridTools {
     static Dictionary<Vector2, GameObject> CreateTiles(int tilesCount, GameObject grid, Dictionary<int, Controller> controllers) {
         var tiles = new Dictionary<Vector2, GameObject>();
         var tilePrefab = Resources.Load<GameObject>("Tile");
-        var TileRectTransform = tilePrefab.GetComponent<RectTransform>();
+        var tileRectTransform = tilePrefab.GetComponent<RectTransform>();
         var setup = grid.GetComponent<TileSetup>();
         var gridRectTransform = grid.GetComponent<RectTransform>();
 
@@ -120,8 +120,8 @@ public class GridTools {
                 rectTransform.anchorMin = Vector2.zero;
                 rectTransform.anchorMax = Vector2.zero;
                 rectTransform.anchoredPosition =
-                    (position * TileRectTransform.sizeDelta.x) +
-                    new Vector2(TileRectTransform.sizeDelta.x / 2, TileRectTransform.sizeDelta.x / 2);
+                    (position * tileRectTransform.sizeDelta.x) +
+                    new Vector2(tileRectTransform.sizeDelta.x / 2, tileRectTransform.sizeDelta.x / 2);
 
                 tile.name = string.Format("Tile Pos {1};{2}", index, position.x, position.y);
                 tiles[position] = tile;
@@ -132,8 +132,8 @@ public class GridTools {
         }
 
         gridRectTransform.sizeDelta = new Vector2(
-            gridSize.x * TileRectTransform.sizeDelta.x,
-            gridSize.y * TileRectTransform.sizeDelta.y
+            gridSize.x * tileRectTransform.sizeDelta.x,
+            gridSize.y * tileRectTransform.sizeDelta.y
         );
 
         return tiles;
