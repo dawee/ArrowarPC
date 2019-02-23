@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileDirection : MonoBehaviour
 {
-    private enum Direction {
+    public enum Direction {
         Up = 0,
         Right = 1,
         Down = 2,
@@ -18,6 +18,12 @@ public class TileDirection : MonoBehaviour
     private TileSelector TileSelector = default;
 
     private Direction currentDirection = default;
+
+    public Direction CurrentDirection {
+        get {
+            return currentDirection;
+        }
+    }
 
     private void Awake() {
         var initialDirection = Random.Range(0, 4);
