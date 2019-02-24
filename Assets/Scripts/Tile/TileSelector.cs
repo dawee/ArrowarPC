@@ -9,7 +9,7 @@ public class TileSelector : MonoBehaviour {
     private Animator animator = default;
 
     [SerializeField]
-    private TileMoveSelection move = new TileMoveSelection();
+    private TileSelectionMoveEventNode move = new TileSelectionMoveEventNode();
 
     [SerializeField]
     private TileSetup setup = default;
@@ -17,7 +17,7 @@ public class TileSelector : MonoBehaviour {
     private int playerIndex;
     private int lastMoveFrame = 0;
 
-    public TileMoveSelection Move {
+    public TileSelectionMoveEventNode Move {
         get {
             return move;
         }
@@ -56,9 +56,9 @@ public class TileSelector : MonoBehaviour {
     public void RequestMoveLeft(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Left.Invoke(
-                new TileMoveSelection.Data(
+                new TileSelectionMoveEventNode.Data(
                     this,
-                    TileMoveSelection.Data.Direction.Left
+                    TileSelectionMoveEventNode.Data.Direction.Left
                 )
             );
         }
@@ -67,9 +67,9 @@ public class TileSelector : MonoBehaviour {
     public void RequestMoveRight(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Right.Invoke(
-                new TileMoveSelection.Data(
+                new TileSelectionMoveEventNode.Data(
                     this,
-                    TileMoveSelection.Data.Direction.Right
+                    TileSelectionMoveEventNode.Data.Direction.Right
                 )
             );
         }
@@ -78,9 +78,9 @@ public class TileSelector : MonoBehaviour {
     public void RequestMoveDown(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Down.Invoke(
-                new TileMoveSelection.Data(
+                new TileSelectionMoveEventNode.Data(
                     this,
-                    TileMoveSelection.Data.Direction.Down
+                    TileSelectionMoveEventNode.Data.Direction.Down
                 )
             );
         }
@@ -89,28 +89,28 @@ public class TileSelector : MonoBehaviour {
     public void RequestMoveUp(int playerIndex) {
         if (CanChangeSelection() && this.playerIndex == playerIndex) {
             move.Up.Invoke(
-                new TileMoveSelection.Data(
+                new TileSelectionMoveEventNode.Data(
                     this,
-                    TileMoveSelection.Data.Direction.Up
+                    TileSelectionMoveEventNode.Data.Direction.Up
                 )
             );
         }
     }
 
-    public void StealSelectionFrom(TileMoveSelection.Data data) {
+    public void StealSelectionFrom(TileSelectionMoveEventNode.Data data) {
         if (CanChangeSelection() && data.Origin.HasSelection()) {
             if (HasSelection()) {
                 switch(data.InitialDirection) {
-                    case TileMoveSelection.Data.Direction.Left:
+                    case TileSelectionMoveEventNode.Data.Direction.Left:
                         move.Left.Invoke(data);
                         break;
-                    case TileMoveSelection.Data.Direction.Right:
+                    case TileSelectionMoveEventNode.Data.Direction.Right:
                         move.Right.Invoke(data);
                         break;
-                    case TileMoveSelection.Data.Direction.Down:
+                    case TileSelectionMoveEventNode.Data.Direction.Down:
                         move.Down.Invoke(data);
                         break;
-                    case TileMoveSelection.Data.Direction.Up:
+                    case TileSelectionMoveEventNode.Data.Direction.Up:
                         move.Up.Invoke(data);
                         break;
                 };

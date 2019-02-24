@@ -40,21 +40,36 @@ public class GridTools {
         return new Vector2(xIndex, yIndex);
     }
 
-    static void ConnectNearTile(
+    static void ConnectNearTileMovedSelection(
         Dictionary<Vector2, GameObject> tiles,
         Vector2 nearPosition,
         TileSelector selector,
-        TileMoveSelection.EventType moveEvent
+        TileSelectionMoveEventNode.EventType moveEvent
     ) {
         if (tiles.ContainsKey(nearPosition)) {
-            var nearCase = tiles[nearPosition];
-            var nearSelector = nearCase.GetComponent<TileSelector>();
-            var action = new UnityAction<TileMoveSelection.Data>(nearSelector.StealSelectionFrom);
+            var nearTile = tiles[nearPosition];
+            var nearSelector = nearTile.GetComponent<TileSelector>();
+            var action = new UnityAction<TileSelectionMoveEventNode.Data>(nearSelector.StealSelectionFrom);
 
             UnityEventTools.AddPersistentListener(moveEvent, action);
         }
     }
-    
+
+    static void ConnectNearTilePushedItems(
+        Dictionary<Vector2, GameObject> tiles,
+        Vector2 nearPosition,
+        TileDirection direction,
+        PushedItemsEventNode.EventType moveEvent
+    ) {
+        if (tiles.ContainsKey(nearPosition)) {
+            var nearTile = tiles[nearPosition];
+            var nearDirection = nearTile.GetComponent<TileDirection>();
+            var action = new UnityAction<PushedItemsEventNode.Data>(nearDirection.PullItems);
+
+            UnityEventTools.AddPersistentListener(moveEvent, action);
+        }
+    }
+
     static void  AddSelectorDirectionChangeListeners(TileDirection direction, Dictionary<int, Controller> controllers) {
         for (var playerIndex = 1; playerIndex <= playersCount; ++playerIndex) {
             UnityEventTools.AddIntPersistentListener(
@@ -145,6 +160,7 @@ public class GridTools {
         var grid = new GameObject("Arrowar Grid");
         var gridRectTransform = grid.AddComponent<RectTransform>();
         var setup = grid.AddComponent<TileSetup>();
+        var distributor = grid.AddComponent<ItemDistributor>();
         var controllers = new Dictionary<int, Controller>();
         var player1AreaPrefab = Resources.Load<GameObject>("Player1");
         var player2AreaPrefab = Resources.Load<GameObject>("Player2");
@@ -168,37 +184,67 @@ public class GridTools {
             2
         );
 
-        foreach (var TileItem in tiles) {
-            var Tile = TileItem.Value;
-            var selector = Tile.GetComponent<TileSelector>();
+        foreach (var tileItem in tiles) {
+            var tile = tileItem.Value;
+            var direction = tile.GetComponent<TileDirection>(); 
+            var selector = tile.GetComponent<TileSelector>();
 
-            ConnectNearTile(
+            ConnectNearTileMovedSelection(
                 tiles,
-                TileItem.Key + Vector2.left,
+                tileItem.Key + Vector2.left,
                 selector,
                 selector.Move.Left
             );
 
-            ConnectNearTile(
+            ConnectNearTileMovedSelection(
                 tiles,
-                TileItem.Key + Vector2.right,
+                tileItem.Key + Vector2.right,
                 selector,
                 selector.Move.Right
             );
 
-            ConnectNearTile(
+            ConnectNearTileMovedSelection(
                 tiles,
-                TileItem.Key + Vector2.down,
+                tileItem.Key + Vector2.down,
                 selector,
                 selector.Move.Down
             );
 
-            ConnectNearTile(
+            ConnectNearTileMovedSelection(
                 tiles,
-                TileItem.Key + Vector2.up,
+                tileItem.Key + Vector2.up,
                 selector,
                 selector.Move.Up
             );
+
+            ConnectNearTilePushedItems(
+                tiles,
+                tileItem.Key + Vector2.left,
+                direction,
+                direction.PushedItems.Left
+            );
+
+            ConnectNearTilePushedItems(
+                tiles,
+                tileItem.Key + Vector2.right,
+                direction,
+                direction.PushedItems.Right
+            );
+
+            ConnectNearTilePushedItems(
+                tiles,
+                tileItem.Key + Vector2.down,
+                direction,
+                direction.PushedItems.Down
+            );
+
+            ConnectNearTilePushedItems(
+                tiles,
+                tileItem.Key + Vector2.up,
+                direction,
+                direction.PushedItems.Up
+            );
+
         }
 
         if (Selection.activeGameObject) {
@@ -213,6 +259,11 @@ public class GridTools {
 
         player2Area.transform.SetParent(grid.transform);
         player2Area.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+
+        UnityEventTools.AddPersistentListener(
+            distributor.Distributed,
+            new UnityAction<Item.ItemType>(tiles.Last().Value.GetComponent<TileDirection>().InstantiateItem)
+        );
 
         gridRectTransform.anchoredPosition = Vector2.zero;
         gridRectTransform.localPosition = Vector2.zero;

@@ -18,6 +18,9 @@ public class Item : MonoBehaviour
     private Image image = default;
 
     [SerializeField]
+    private RectTransform rectTransform;
+
+    [SerializeField]
     private Animator animator = default;
 
     [SerializeField]
@@ -30,14 +33,11 @@ public class Item : MonoBehaviour
     private Sprite bombSprite = default;
 
     [SerializeField]
-    private TileDirectionEvent onMoveDone = default;
+    private ItemMovedEvent moved = default;
 
-    public ItemType Type {
+    public ItemMovedEvent Moved {
         get {
-            return type;
-        }
-        set {
-            type = value;
+            return moved;
         }
     }
 
@@ -86,6 +86,27 @@ public class Item : MonoBehaviour
             return;
         }
 
-        onMoveDone.Invoke(targetSquare);
+        moved.Invoke(new ItemMoved(this, targetSquare));
     }
+
+    public void UpdatePosition(Vector2 position) {
+        rectTransform.anchoredPosition = position;
+    }
+
+    public static Item Instantiate(ItemType itemType, Transform parent, Vector2 position) {
+        var prefab = Resources.Load<GameObject>("Item");
+        var gameObject = Object.Instantiate(prefab) as GameObject;
+        var item = gameObject.GetComponent<Item>();
+
+        item.type = itemType;
+        gameObject.transform.SetParent(parent);
+        item.rectTransform.anchorMin = Vector2.zero;
+        item.rectTransform.anchorMax = Vector2.zero;
+        item.rectTransform.localScale = Vector2.one;
+        item.OnValidate();
+        item.UpdatePosition(position);
+
+        return item;
+    }
+
 }

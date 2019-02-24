@@ -127,11 +127,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   image: {fileID: 1455082347}
-  animator: {fileID: 0}
+  rectTransform: {fileID: 7995819131564663167}
+  animator: {fileID: 5059988566154200873}
   heartSprite: {fileID: 21300000, guid: d5cfde4a1088f25448a3b445b4810f97, type: 3}
   shieldSprite: {fileID: 21300000, guid: 7a893aa58b3890e42b944832f9b91500, type: 3}
   bombSprite: {fileID: 21300000, guid: bc7197bdd4a5ea84c80be5da32b05da2, type: 3}
-  onMoveDone:
+  moved:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: TileDirectionEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
