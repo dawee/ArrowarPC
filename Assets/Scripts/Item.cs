@@ -42,6 +42,7 @@ public class Item : MonoBehaviour
     }
 
     private TileDirection targetSquare;
+    private Vector2? nextPosition = null;
 
     private void OnValidate() {
         switch (type)
@@ -90,7 +91,16 @@ public class Item : MonoBehaviour
     }
 
     public void UpdatePosition(Vector2 position) {
-        rectTransform.anchoredPosition = position;
+        var isIdle = animator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
+
+        if (isIdle)
+        {
+            rectTransform.anchoredPosition = position;
+        }
+        else
+        {
+            nextPosition = position;
+        }
     }
 
     public static Item Instantiate(ItemType itemType, Transform parent, Vector2 position) {
@@ -109,4 +119,13 @@ public class Item : MonoBehaviour
         return item;
     }
 
+    private void Update()
+    {
+        if (nextPosition.HasValue) {
+            rectTransform.anchoredPosition = nextPosition.Value;
+            nextPosition = null;
+
+            animator.SetTrigger("Reset");
+        }
+    }
 }

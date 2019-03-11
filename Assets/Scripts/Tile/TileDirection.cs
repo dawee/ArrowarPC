@@ -45,7 +45,7 @@ public class TileDirection : MonoBehaviour
 
     public void PushItems() {
         if (Items.Count > 0) {
-            Debug.Log("PushItems()");
+            Debug.Log("PushItems()" + " " + name);
 
             switch(currentDirection) {
                 case Direction.Left:

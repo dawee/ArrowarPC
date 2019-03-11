@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class ItemDistributor : MonoBehaviour {
 
     private float lastDistributionTime;
+    private int distributionCount = 0;
 
     [SerializeField]
     private float period = 5f;
@@ -20,8 +21,13 @@ public class ItemDistributor : MonoBehaviour {
     }
 
     private void Update() {
+        if (distributionCount > 0) {
+            return;
+        }
+        
         if (Time.fixedTime - lastDistributionTime >= period) {
             Debug.Log("distribute item");
+            distributionCount++;
             distributed.Invoke(Item.ItemType.Bomb);
             lastDistributionTime = Time.fixedTime;
         }
