@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 [CanEditMultipleObjects]
 public class GridTools {
-
     private static readonly int playersCount = 2;
     private static readonly Vector2 playerBaseSize = new Vector2(2, 2);
     private static readonly Vector2 gridSize = new Vector2(14, 6);
@@ -108,21 +107,52 @@ public class GridTools {
         }
     }
 
+    static void InitTileRectTransform(GameObject tile, RectTransform referenceRectTransform, Vector2 position) {
+        var rectTransform = tile.GetComponent<RectTransform>();
+
+        rectTransform.anchorMin = Vector2.zero;
+        rectTransform.anchorMax = Vector2.zero;
+        rectTransform.anchoredPosition =
+            (position * referenceRectTransform.sizeDelta.x) +
+            new Vector2(referenceRectTransform.sizeDelta.x / 2, referenceRectTransform.sizeDelta.x / 2);
+    }
+
+    static void InitGridLayerRectTransform(GameObject layer) {
+        var rectTransform = layer.AddComponent<RectTransform>();
+        rectTransform.anchorMin = Vector2.zero;
+        rectTransform.anchorMax = Vector2.one;
+        rectTransform.anchoredPosition = Vector2.zero;
+        rectTransform.localPosition = Vector2.zero;
+        rectTransform.localScale = Vector2.one;
+        rectTransform.sizeDelta = Vector2.zero;
+    }
+
     static Dictionary<Vector2, GameObject> CreateTiles(int tilesCount, GameObject grid, Dictionary<int, Controller> controllers) {
         var tiles = new Dictionary<Vector2, GameObject>();
-        var tilePrefab = Resources.Load<GameObject>("Tile");
+        var tileBackgroundPrefab = Resources.Load<GameObject>("TileBackground");
+        var tilePathPrefab = Resources.Load<GameObject>("TilePath");
+        var tilePrefab = Resources.Load<GameObject>("TileArrow");
         var tileRectTransform = tilePrefab.GetComponent<RectTransform>();
         var setup = grid.GetComponent<TileSetup>();
         var gridRectTransform = grid.GetComponent<RectTransform>();
+
+        // create layers
+        var backgroundLayer = new GameObject("BackgroundLayer");
+        var pathLayer = new GameObject("PathLayer");
+        var arrowLayer = new GameObject("ArrowLayer");
+        backgroundLayer.transform.SetParent(grid.transform);
+        pathLayer.transform.SetParent(grid.transform);
+        arrowLayer.transform.SetParent(grid.transform);
 
         for (int index = 0; index < tilesCount; ++index) {
             var position = GetGridPosition(index);
 
             if (!deadCells.Contains(position)) {
-                var tile = PrefabUtility.InstantiatePrefab(tilePrefab) as GameObject;
-                var selector = tile.GetComponent<TileSelector>();
-                var direction = tile.GetComponent<TileDirection>();
-                var rectTransform = tile.GetComponent<RectTransform>();
+                var tileBackground = PrefabUtility.InstantiatePrefab(tileBackgroundPrefab) as GameObject;
+                var tilePath = PrefabUtility.InstantiatePrefab(tilePathPrefab) as GameObject;
+                var tileArrow = PrefabUtility.InstantiatePrefab(tilePrefab) as GameObject;
+                var selector = tileArrow.GetComponent<TileSelector>();
+                var direction = tileArrow.GetComponent<TileDirection>();
                 var serializedSelector = new UnityEditor.SerializedObject(selector);
                 var setupProperty = serializedSelector.FindProperty("setup");
 
@@ -130,16 +160,22 @@ public class GridTools {
 
                 serializedSelector.ApplyModifiedProperties();
 
-                tile.transform.SetParent(grid.transform);
+                // Add tile element to the right layer
+                tileBackground.transform.SetParent(backgroundLayer.transform);
+                tilePath.transform.SetParent(pathLayer.transform);
+                tileArrow.transform.SetParent(arrowLayer.transform);
 
-                rectTransform.anchorMin = Vector2.zero;
-                rectTransform.anchorMax = Vector2.zero;
-                rectTransform.anchoredPosition =
-                    (position * tileRectTransform.sizeDelta.x) +
-                    new Vector2(tileRectTransform.sizeDelta.x / 2, tileRectTransform.sizeDelta.x / 2);
+                // Set tile element position
+                InitTileRectTransform(tileBackground, tileRectTransform, position);
+                InitTileRectTransform(tilePath, tileRectTransform, position);
+                InitTileRectTransform(tileArrow, tileRectTransform, position);
 
-                tile.name = string.Format("Tile Pos {1};{2}", index, position.x, position.y);
-                tiles[position] = tile;
+                // Set tile element name
+                tileBackground.name = string.Format("Background {0};{1}", position.x, position.y);
+                tilePath.name = string.Format("Path {0};{1}", position.x, position.y);
+                tileArrow.name = string.Format("Tile {0};{1}", position.x, position.y);
+
+                tiles[position] = tileArrow;
 
                 AddSelectorMoveRequestListeners(selector, controllers);
                 AddSelectorDirectionChangeListeners(direction, controllers);
@@ -150,6 +186,10 @@ public class GridTools {
             gridSize.x * tileRectTransform.sizeDelta.x,
             gridSize.y * tileRectTransform.sizeDelta.y
         );
+
+        InitGridLayerRectTransform(backgroundLayer);
+        InitGridLayerRectTransform(pathLayer);
+        InitGridLayerRectTransform(arrowLayer);
 
         return tiles;
     }
