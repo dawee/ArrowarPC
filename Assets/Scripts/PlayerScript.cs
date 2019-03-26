@@ -5,57 +5,76 @@ using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField]
-    private Animator[] healthAnimators;
+  [SerializeField]
+  private Animator[] healthAnimators;
 
-    [SerializeField]
-    private Animator[] armorAnimators;
+  [SerializeField]
+  private Animator[] armorAnimators;
 
-    private int health = 3;
-    private int armor = 3;
+  private int health = 3;
+  private int armor = 3;
 
-    private void SetVisibleItems(Animator[] animators, int count)
+  private void SetVisibleItems(Animator[] animators, int count)
+  {
+    for (var i = 0; i < animators.Length; i++)
     {
-        for (var i = 0; i < animators.Length; i++)
-        {
-            animators[i].SetBool("visible", i  < count);
-        }
+      animators[i].SetBool("visible", i < count);
+    }
+  }
+
+  private void SetHealth(int val)
+  {
+    health = val;
+    SetVisibleItems(healthAnimators, val);
+  }
+
+  private void SetArmor(int val)
+  {
+    armor = val;
+    SetVisibleItems(armorAnimators, val);
+  }
+
+  public void Reset()
+  {
+    SetHealth(3);
+    SetArmor(3);
+  }
+
+  public void Hit()
+  {
+    if (armor > 0)
+    {
+      SetArmor(armor - 1);
+    }
+    else if (health > 0)
+    {
+      SetHealth(health - 1);
     }
 
-    private void SetHealth(int val)
+    if (health == 0)
     {
-        health = val;
-        SetVisibleItems(healthAnimators, val);
+      Debug.LogFormat("RIP {0}", name);
+    }
+  }
+
+  public void PullItems(PushedItemsEventNode.Data data)
+  {
+    foreach (var item in data.Origin.Items)
+    {
+      item.Move(data.Origin, this);
     }
 
-    private void SetArmor(int val)
-    {
-        armor = val;
-        SetVisibleItems(armorAnimators, val);
-    }
+    data.Origin.Items.Clear();
+  }
 
-    public void Reset()
-    {
-        SetHealth(3);
-        SetArmor(3);
-    }
+  public void OnItemDropped(Item item)
+  {
+    Hit();
+    Object.Destroy(item.gameObject);
+  }
 
-    public void Hit()
-    {
-        if (armor > 0) {
-            SetArmor(armor - 1);
-        }
-        else if (health > 0) {
-            SetHealth(health - 1);
-        }
-
-        if (health == 0) {
-            Debug.LogFormat("RIP {0}", name);
-        }
-    }
-
-    private void Awake()
-    {
-        Reset();
-    }
+  private void Awake()
+  {
+    Reset();
+  }
 }
